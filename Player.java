@@ -1,4 +1,3 @@
-
 public class Player {
 	private int rank;
 	private int dollars;

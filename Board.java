@@ -32,12 +32,8 @@ public class Board {
 
     }
 
-//    public int getDaysLeft() {
-//
-//    }
-
     public Room[] getAdjacentRooms(Room room) {
-        Room[] adjRooms;
+        Room[] adjRooms = {};
         return adjRooms;
     }
 

@@ -2,7 +2,7 @@ public class CastingOffice {
   private int[][] upgrades;
 
   public String[] getUpgrades(int money, int credits) {
-    String[] availUpgrades;
+    String[] availUpgrades = {};
     return availUpgrades;
   }
 
