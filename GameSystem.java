@@ -1,5 +1,5 @@
 
-public class System {
+public class GameSystem {
 	private int playerCnt;
 	private Player[] players;
 	private int numCnt;
