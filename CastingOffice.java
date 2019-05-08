@@ -1,6 +1,7 @@
 public class CastingOffice extends Room {
     private Room[] adjacentRooms;
     private Player[] playersHere;
+    private String roomName;
     private int[][] upgrades;
 
     public String[] getUpgrades(int money, int credits) {
@@ -11,4 +12,8 @@ public class CastingOffice extends Room {
     public void selectUpgrade(String upgrade) {
     return;
   }
+
+    public String getRoomName() {
+        return roomName;
+    }
 }

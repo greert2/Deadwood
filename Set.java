@@ -1,6 +1,7 @@
 public class Set extends Room{
     private Room[] adjacentRooms;
     private Player[] playersHere;
+    private String roomName;
     private Scene currScene;
     private int shotCounters;
     private boolean finished;
@@ -15,6 +16,10 @@ public class Set extends Room{
 
     public Room[] getAdjacentRooms() {
         return adjacentRooms;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 
     public void removeShotCounter() {
