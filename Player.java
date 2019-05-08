@@ -6,33 +6,51 @@ public class Player {
 	private int rehearseChips;
 	private Role role;
 	private String color;
+
+	public Player (int rank, int dollars, int credits, Room startRoom, String color) {
+		this.rank = rank;
+		this.dollars = dollars;
+		this.credits = credits;
+		this.currentRoom = startRoom;
+		this.color = color; //maybe change to index based color assigning
+	}
 		
 	public void moveRoom(Room room) {
-		//TODO
+		if(roomIsAdjacent(room)) {
+			this.currentRoom = room;
+		}
+	}
+
+	private boolean roomIsAdjacent(Room room) {
+		for(Room r : currentRoom.getAdjacentRooms()) {
+			if(r == room) //TODO: probably will have to change
+				return true;
+		}
+		return false;
 	}
 	
 	public void addMoney(int amount) {
-		//TODO
+		this.dollars += amount;
 	}
 	
 	public void addCredits(int amount) {
-		//TODO
+		this.credits += amount;
 	}
 	
 	public void updateRole(Role role) {
-		//TODO
+		this.role = role;
 	}
 	
 	public void updateRank(int rank) {
-		//TODO
+		this.rank = rank;
 	}
 	
 	public void act() {
-		//TODO
+		//TODO: roll (add practice chips), compare to value, pay/not
 	}
 	
 	public void rehearse() {
-		//TODO
+		this.rehearseChips += 1;
 	}
 	
 	public void givePlayerMainBonus(int roll, Role role) {
@@ -44,17 +62,14 @@ public class Player {
 	}
 	
 	public String getColor() {
-		//TODO
 		return color;
 	}
 	
 	public int getMoney() {
-		//TODO
 		return dollars;
 	}
 	
 	public int getCredits() {
-		//TODO
 		return credits;
 	}
 }
