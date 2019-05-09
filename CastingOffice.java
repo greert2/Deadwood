@@ -4,6 +4,10 @@ public class CastingOffice extends Room {
     private String roomName;
     private int[][] upgrades;
 
+    public CastingOffice(String roomName) {
+        this.roomName = roomName;
+    }
+
     public String[] getUpgrades(int money, int credits) {
     String[] availUpgrades = {};
     return availUpgrades;

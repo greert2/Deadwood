@@ -28,12 +28,15 @@ public class Deadwood {
         System.out.println("Welcome to Deadwood!");
 
         Board board = new Board();
+        board.startBoard();
         //TODO:set up the board
+
 
         /* Set up players */
         for(int i = 0; i < playerCnt; i++) {
-            players.add(new Player()); //TODO: give players starting rank, location, etc. (constructor)
+            players.add(new Player(1, 0, 0, board.getSpecificRoom("Trailer"), "testColor")); //TODO: give players starting rank, location, etc. (constructor)
         }
+
 
         return;
     }

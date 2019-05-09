@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 public abstract class Room {
     private Room[] adjacentRooms;
-    private Player[] playersHere;
+    private ArrayList<Player> playersHere;
     private String roomName;
 
     public void setAdjacentRooms(Room[] adjacentRooms) {

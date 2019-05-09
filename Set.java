@@ -1,10 +1,15 @@
 public class Set extends Room{
     private Room[] adjacentRooms;
-    private Player[] playersHere;
+//    private ArrayList<Player> playersHere;
     private String roomName;
     private Scene currScene;
     private int shotCounters;
     private boolean finished;
+
+    public Set(String roomName) {
+        this.roomName = roomName;
+        this.finished = false;
+    }
 
     public int getShotsLeft() {
         return shotCounters;
@@ -20,6 +25,14 @@ public class Set extends Room{
 
     public String getRoomName() {
         return roomName;
+    }
+
+    public Scene getCurrScene() {
+        return currScene;
+    }
+
+    public void setCurrScene(Scene scene) {
+        this.currScene = scene;
     }
 
     public void removeShotCounter() {

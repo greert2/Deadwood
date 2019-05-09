@@ -3,6 +3,10 @@ public class Trailer extends Room{
     private Player[] playersHere;
     private String roomName;
 
+    public Trailer(String roomName) {
+        this.roomName = roomName;
+    }
+
     public void setAdjacentRooms(Room[] adjacentRooms) {
         this.adjacentRooms = adjacentRooms;
     }
