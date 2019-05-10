@@ -1,12 +1,16 @@
+import java.io.*;
+
 public class Board {
 
     private int roomNum;
     private Room[] rooms;
+    private Scene[] scenes; //TODO: add to diagram
     private int roomIx;
 
     public void startBoard() {
         createRooms();
         //Create scenes
+        createScenes();
         //Get random scenes
 
         return;
@@ -28,6 +32,46 @@ public class Board {
         for(Room r : rooms) {
             System.out.printf("%s\n", r.getRoomName()); //remove
         }
+    }
+
+    public void createScenes() {
+        final int TOTAL_SCENES = 40;
+        BufferedReader br;
+        String tempSceneName;
+        String tempDescription;
+        int tempBudget;
+        int sceneIx = 0;
+        scenes = new Scene[TOTAL_SCENES];
+
+        try{
+            //read in the file
+            br = new BufferedReader(new FileReader("scenes.txt"));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                //Alternating syntax: First line is [SceneName/Budget/Description]
+                String[] arr;
+                arr = line.split("/", 3);
+                tempSceneName = arr[0];
+                tempBudget = Integer.parseInt(arr[1]);
+                tempDescription = arr[2];
+
+                // and next line is [ReqRank_RoleName_Phrase/RoleName_Phrase...]
+                line = br.readLine();
+                arr = line.split("/", 3);
+                if(arr.length == 3) {
+                    scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]);
+                }else{
+                    scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]);
+                }
+                sceneIx++;
+            }
+
+        }catch(IOException e){
+            System.out.println("Couldn't find scene file 'scene.txt");
+            System.exit(1);
+        }
+
     }
 
     public Room[] getRooms() {
@@ -56,6 +100,8 @@ public class Board {
         //TODO
         return;
     }
+
+
 
     public void placeScenes(Scene[] scenes) {
         //TODO: Place them on the board

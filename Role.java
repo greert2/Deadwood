@@ -6,11 +6,10 @@ public class Role {
 	private Player actor;
 	private boolean onCard;
 	
-	public Role(String name, int reqRank, String phrase, boolean taken, boolean onCard) {
+	public Role(String name, int reqRank, String phrase, boolean onCard) {
       this.name = name;
       this.reqRank = reqRank;
       this.phrase = phrase;
-      this.taken = taken;
       this.onCard = onCard;
    }
 	
