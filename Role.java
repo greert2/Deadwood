@@ -6,7 +6,13 @@ public class Role {
 	private Player actor;
 	private boolean onCard;
 	
-	public Role() {}
+	public Role(String name, int reqRank, String phrase, boolean taken, boolean onCard) {
+      this.name = name;
+      this.reqRank = reqRank;
+      this.phrase = phrase;
+      this.taken = taken;
+      this.onCard = onCard;
+   }
 	
 	public boolean isExtra() {
 		//TODO
@@ -18,23 +24,19 @@ public class Role {
 	}
 	
 	public String getRoleInfo() {
-		//TODO
 		return name;
 	}
 	
 	public boolean roleAvailable() {
-		//TODO
-		return taken;
+		return !taken;
 	}
 	
 	public String getLine() {
-		//TODO
 		return phrase;
 
 	}
 	
 	public int getReqRank() {
-		//TODO
 		return reqRank;
 	}
 	
