@@ -23,7 +23,7 @@ public class Player {
 
 	private boolean roomIsAdjacent(Room room) {
 		for(Room r : currentRoom.getAdjacentRooms()) {
-			if(r == room) //TODO: probably will have to change
+			if(r.getRoomName().equals(room.getRoomName()))
 				return true;
 		}
 		return false;
@@ -46,7 +46,28 @@ public class Player {
 	}
 	
 	public void act() {
-		//TODO: roll (add practice chips), compare to value, pay/not
+		//Does: roll (add practice chips), compare to value, pay/not
+		Dice dice = new Dice();
+		int[] rollArr = dice.roll(1);
+		int roll = rollArr[0];
+		roll += rehearseChips;
+		if(roll >= ((Set)this.currentRoom).getCurrScene().getBudget()) {
+			//Successful Acting!
+			if(this.getRole().isExtra()) {
+				((Set)this.getCurrentRoom()).removeShotCounter();
+				this.addCredits(1);
+				this.addMoney(1);
+			}else{
+				//NOT an extra
+				((Set)this.getCurrentRoom()).removeShotCounter();
+				this.addCredits(2);
+			}
+		}else{
+			if(this.getRole().isExtra()) {
+				//Extra role failed, but still gets a dollar!
+				this.addMoney(1);
+			}
+		}
 	}
 	
 	public void rehearse() {
@@ -71,5 +92,17 @@ public class Player {
 	
 	public int getCredits() {
 		return credits;
+	}
+
+	public int getRehearseChips() { //TODO: add to diagram
+		return rehearseChips;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
 	}
 }

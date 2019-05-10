@@ -43,6 +43,7 @@ public class Scene {
     }
 
     public void visit() {
+        visited = true;
         return;
     }
 
@@ -51,6 +52,7 @@ public class Scene {
     }
 
     public void wrap() {
+
         return;
     }
 
