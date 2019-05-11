@@ -65,9 +65,11 @@ public class Board {
                 if(arr.length == 3) {
                     //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]);
                     scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]));
-                }else{
+                }else if(arr.length == 2){
                     //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]);
                     scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]));
+                }else if(arr.length == 1) {
+                    scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0]));
                 }
                 sceneIx++;
             }

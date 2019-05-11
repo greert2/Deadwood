@@ -38,6 +38,18 @@ public class Scene {
         roles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
     }
 
+    public Scene(String sceneName, String description, int budget, String role1) {
+        roles = new Role[1];
+        String arr[];
+        this.sceneName = sceneName;
+        this.description = description;
+        this.budget = budget;
+
+        //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
+        arr = role1.split("_", 3);
+        roles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+    }
+
     public Role[] getRoles(){
         return roles;
     }
