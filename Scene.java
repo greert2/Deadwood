@@ -3,8 +3,8 @@ public class Scene {
     private Role[] roles;
     private int budget;
     private boolean visited;
-    private String sceneName; //TODO: add to diagram
-    private String description; //TODO: add to diagram
+    private String sceneName;
+    private String description;
 
 
     //Scenes can either have two or three roles, so two constructors
@@ -59,4 +59,5 @@ public class Scene {
     public String getDescription() {
         return description;
     }
+
 }

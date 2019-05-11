@@ -1,18 +1,20 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Board {
 
     private int roomNum;
     private Room[] rooms;
-    private Scene[] scenes; //TODO: add to diagram
-    private int roomIx;
+    private ArrayList<Scene> scenes;
+    private int sceneCnt;
 
     public void startBoard() {
         createRooms();
         //Create scenes
         createScenes();
         //Get random scenes
-
+        placeScenes();
         return;
     }
 
@@ -35,13 +37,14 @@ public class Board {
     }
 
     public void createScenes() {
-        final int TOTAL_SCENES = 40;
+        //final int TOTAL_SCENES = 40;
+        scenes = new ArrayList<Scene>();
         BufferedReader br;
         String tempSceneName;
         String tempDescription;
         int tempBudget;
         int sceneIx = 0;
-        scenes = new Scene[TOTAL_SCENES];
+        //scenes = new Scene[TOTAL_SCENES];
 
         try{
             //read in the file
@@ -60,9 +63,11 @@ public class Board {
                 line = br.readLine();
                 arr = line.split("/", 3);
                 if(arr.length == 3) {
-                    scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]);
+                    //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]);
+                    scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]));
                 }else{
-                    scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]);
+                    //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]);
+                    scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]));
                 }
                 sceneIx++;
             }
@@ -88,32 +93,53 @@ public class Board {
     }
 
     public void removeScenes() {
-        for(Room r : rooms) {
-            if(r instanceof Set) {
-                ((Set)r).setCurrScene(null);
+        for(int i = 0; i < rooms.length; i++) {
+            if(rooms[i] instanceof Set) {
+                ((Set)rooms[i]).setCurrScene(null);
             }
         }
         return;
     }
 
     public void resetBoard() {
-        //TODO
+        ArrayList<Player> players = Deadwood.getPlayerList();
+        for(Player p : players) {
+            //move all players back to their trailers
+            p.moveRoom(this.getSpecificRoom("Trailer"));
+        }
+        removeScenes();
+        placeScenes();
         return;
     }
 
 
 
-    public void placeScenes(Scene[] scenes) {
-        //TODO: Place them on the board
+    public void placeScenes() {
+        //Shuffle list, remove 10 scenes & place them on the board
+        Collections.shuffle(scenes);
+        for(int i = 0; i < rooms.length; i++) {
+            if(rooms[i] instanceof Set) {
+                ((Set)rooms[i]).setCurrScene(scenes.remove(0));
+            }
+        }
         return;
     }
 
     public void endDay() {
+        removeScenes();
+        placeScenes();
+        //reset shotCounters
+        resetSceneCnt();
         return;
     }
 
-    public void updateRoomCnt() {
-        //TODO
+    public int updateSceneCnt() { //TODO: alter diagram
+        this.sceneCnt--;
+        return this.sceneCnt;
+    }
+
+    public void resetSceneCnt() {
+        this.sceneCnt = 10;
     }
 
     public Room[] getAdjacentRooms(Room room) {
@@ -125,5 +151,9 @@ public class Board {
         Room temp = getSpecificRoom(room.getRoomName());
         //TODO: remove I think, we should only ever get rid of the scenes
         return;
+    }
+
+    public ArrayList<Scene> getScenes() {
+        return scenes;
     }
 }

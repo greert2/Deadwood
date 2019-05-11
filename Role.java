@@ -14,12 +14,12 @@ public class Role {
    }
 	
 	public boolean isExtra() {
-		//TODO
-		return true;
+		return !onCard;
 	}
 	
 	public void takeRole(Player player) {
-		//TODO
+		this.actor = player;
+		return;
 	}
 	
 	public String getRoleInfo() {
@@ -37,6 +37,10 @@ public class Role {
 	
 	public int getReqRank() {
 		return reqRank;
+	}
+
+	public Player getPlayer() {
+		return actor;
 	}
 	
 	

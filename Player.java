@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Player {
 	private int rank;
 	private int dollars;
@@ -72,14 +74,6 @@ public class Player {
 	
 	public void rehearse() {
 		this.rehearseChips += 1;
-	}
-	
-	public void givePlayerMainBonus(int roll, Role role) {
-		//TODO
-	}
-	
-	public void givePlayerExtraBonus(int roll, Role role) {
-		//TODO
 	}
 	
 	public String getColor() {
