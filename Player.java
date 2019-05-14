@@ -17,10 +17,12 @@ public class Player {
 		this.color = color; //maybe change to index based color assigning
 	}
 		
-	public void moveRoom(Room room) {
+	public boolean moveRoom(Room room) { //TODO: diagram, change to bool
 		if(roomIsAdjacent(room)) {
 			this.currentRoom = room;
+			return true;
 		}
+		return false;
 	}
 
 	private boolean roomIsAdjacent(Room room) {
