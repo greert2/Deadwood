@@ -178,7 +178,7 @@ public class Board {
     }
 
     public void resetBoard() {
-        ArrayList<Player> players = Deadwood.getPlayerList();
+        ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
         for(Player p : players) {
             //move all players back to their trailers
             p.moveRoom(this.getSpecificRoom("Trailer"));
