@@ -1,0 +1,12 @@
+Main Street:Trailer/Saloon/Jail
+Saloon:Trailer/Main Street/General Store/Bank
+Ranch:General Store/Bank/Secret Hideout/Casting Office
+Secret Hideout:Casting Office/Ranch/Church
+Bank:Saloon/Hotel/Church/Ranch
+Church:Secret Hideout/Bank/Hotel
+Hotel:Trailer/Bank/Church
+Train Station:Jail/General Store/Casting Office
+Jail:Train Station/General Store/Main Street
+General Store:Train Station/Jail/Saloon/Ranch
+Trailer:Main Street/Saloon/Hotel
+Casting Office:Train Station/Ranch/Secret Hideout

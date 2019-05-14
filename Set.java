@@ -10,9 +10,49 @@ public class Set extends Room{
     private boolean finished;
     private Role[] offCardRoles;
 
-    public Set(String roomName) {
+    public Set(String roomName, int shotCounters, String role1, String role2) {
+        offCardRoles = new Role[2];
+        String arr[];
         this.roomName = roomName;
         this.finished = false;
+
+        //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
+        arr = role1.split("_", 3);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role2.split("_", 3);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+    }
+
+    public Set(String roomName, int shotCounters, String role1, String role2, String role3) {
+        offCardRoles = new Role[3];
+        String arr[];
+        this.roomName = roomName;
+        this.finished = false;
+
+        //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
+        arr = role1.split("_", 3);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role2.split("_", 3);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role3.split("_", 3);
+        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+    }
+
+    public Set(String roomName, int shotCounters, String role1, String role2, String role3, String role4) {
+        offCardRoles = new Role[4];
+        String arr[];
+        this.roomName = roomName;
+        this.finished = false;
+
+        //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
+        arr = role1.split("_", 3);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role2.split("_", 3);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role3.split("_", 3);
+        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        arr = role4.split("_", 3);
+        offCardRoles[3] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
     }
 
     public int getShotsLeft() {
