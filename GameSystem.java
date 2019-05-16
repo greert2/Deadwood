@@ -22,6 +22,7 @@ public class GameSystem {
 		Scanner scan = new Scanner(System.in);
 		String line, command;
 		String[] words;
+		boolean loop;
 		/* Create list of colors to assign to players */
 		Queue<String> colors = new LinkedList<String>();
 		colors.add("blue");colors.add("cyan");colors.add("green");colors.add("orange");
@@ -36,7 +37,7 @@ public class GameSystem {
 
 		/* Set up players */
 		for(int i = 0; i < playerCnt; i++) {
-			playerList.add(new Player(1, 0, 0, board.getSpecificRoom("Trailer"), colors.remove())); //TODO: give players starting rank, location, etc. (constructor)
+			playerList.add(new Player(1, 0, 0, board.getSpecificRoom("Trailer"), colors.remove()));
 			playersQueue.add(playerList.get(i)); //add all players to a queue for rotation
 		}
 
@@ -47,15 +48,52 @@ public class GameSystem {
 		while(this.getDaysLeft() > 0) {
 			Player currPlayer = playersQueue.remove(); //pop the first player off the queue
 			System.out.println("It is " + currPlayer.getColor() + "'s turn.");
-			System.out.println("What would you like to do?");
-			line = scan.nextLine();
-			words = line.split(" ", 2);
-			command = words[0].toLowerCase();
-			if(command.equals("move") && words.length == 2) {
-				if(currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
-					System.out.println("Successfully moved to " + words[1]);
-				}else{
-					System.out.println("Failed to move");
+			loop = true;
+			while(loop){
+				System.out.println("What would you like to do?");
+				line = scan.nextLine();
+				words = line.split(" ", 2);
+				command = words[0].toLowerCase();
+				if(command.equals("move") && words.length == 2 && currPlayer.getRole() == null) {
+					if(currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
+						System.out.println("Successfully moved to " + words[1]);
+						loop = false;
+					}else{
+						System.out.println("Failed to move");
+					}
+				}else if(command.equals("move") && words.length == 1 && currPlayer.getRole() == null){
+					/* Scenario when just "move" is submitted. Tells adjRooms */
+					Room[] adjRooms = currPlayer.getCurrentRoom().getAdjacentRooms();
+					System.out.println("These rooms are adjacent: ");
+					for(Room r : adjRooms){
+						System.out.println(r.getRoomName());
+					}
+				}else if(command.equals("end")){
+					loop = false;
+				}else if(command.equals("where")){
+					System.out.println("You are located at '" + currPlayer.getCurrentRoom().getRoomName() + "'.");
+					if(currPlayer.getCurrentRoom() instanceof Set){
+						Set currSet = ((Set)currPlayer.getCurrentRoom());
+						System.out.println("The set has these off-card roles:");
+						/* Print off-card roles */
+						for(int i = 0; i < currSet.getOffCardRoles().length; i++) {
+							System.out.println(i + ": " + currSet.getOffCardRoles()[i].getRoleInfo());
+						}
+						if(currSet.getCurrScene() != null){
+							System.out.println("The scene here is: '" + currSet.getCurrScene().getSceneName() + "'.");
+							System.out.println("It has on-card roles:");
+							/* Cycle through on card roles, number them increasing from last time */
+							for(int i = 0; i < ((Set)currPlayer.getCurrentRoom()).getCurrScene().getRoles().length; i++) {
+								System.out.println(i + ": " + currSet.getCurrScene().getRoles()[i].getRoleInfo());
+							}
+						}
+					}
+				}else if(command.equals("who")){
+					System.out.println("You are player " + currPlayer.getColor() + ". You have $" +
+					currPlayer.getMoney() + " and " + currPlayer.getCredits() + " credits. You are of rank " +
+					currPlayer.getRank() + ".");
+				}else if(command.equals("act") && currPlayer.getRole() != null){
+					//TODO
 				}
 			}
 			playersQueue.add(currPlayer);

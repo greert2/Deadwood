@@ -23,7 +23,7 @@ public class Role {
 	}
 	
 	public String getRoleInfo() {
-		return name;
+		return this.name + ": '" + this.getLine() + "'. It requires " + this.getReqRank() + " rank.";
 	}
 	
 	public boolean roleAvailable() {

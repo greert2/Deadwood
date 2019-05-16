@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Set extends Room{
     private Room[] adjacentRooms;
-    private ArrayList<Player> playersHere;
+//    private ArrayList<Player> playersHere;
     private String roomName;
     private Scene currScene;
     private int shotCounters;

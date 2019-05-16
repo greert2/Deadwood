@@ -18,8 +18,11 @@ public class Player {
 	}
 		
 	public boolean moveRoom(Room room) { //TODO: diagram, change to bool
+		if(room == null) {return false;}
 		if(roomIsAdjacent(room)) {
+			this.currentRoom.leave(this);
 			this.currentRoom = room;
+			this.currentRoom.visit(this);
 			return true;
 		}
 		return false;
@@ -100,5 +103,9 @@ public class Player {
 
 	public Room getCurrentRoom() {
 		return currentRoom;
+	}
+
+	public int getRank() {
+		return rank;
 	}
 }

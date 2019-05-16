@@ -72,4 +72,8 @@ public class Scene {
         return description;
     }
 
+    public String getSceneName() {
+        return sceneName;
+    }
+
 }
