@@ -23,6 +23,7 @@ public class GameSystem {
 		String line, command;
 		String[] words;
 		boolean loop;
+		boolean alreadyActed, alreadyRehearsed; //per turn
 		/* Create list of colors to assign to players */
 		Queue<String> colors = new LinkedList<String>();
 		colors.add("blue");colors.add("cyan");colors.add("green");colors.add("orange");
@@ -49,18 +50,25 @@ public class GameSystem {
 			Player currPlayer = playersQueue.remove(); //pop the first player off the queue
 			System.out.println("It is " + currPlayer.getColor() + "'s turn.");
 			loop = true;
+			alreadyActed = false;
+			alreadyRehearsed = false;
 			while(loop){
 				System.out.println("What would you like to do?");
 				line = scan.nextLine();
 				words = line.split(" ", 2);
 				command = words[0].toLowerCase();
-				if(command.equals("move") && words.length == 2 && currPlayer.getRole() == null) {
-					if(currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
-						System.out.println("Successfully moved to " + words[1]);
-						loop = false;
-					}else{
-						System.out.println("Failed to move");
+				if(command.equals("move") && words.length == 2) {
+					if(currPlayer.getRole() != null) {
+						System.out.println("You must finish your role before moving!");
+					}else {
+						if(currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
+							System.out.println("Successfully moved to " + words[1]);
+						}else{
+							System.out.println("Failed to move");
+						}
 					}
+
+
 				}else if(command.equals("move") && words.length == 1 && currPlayer.getRole() == null){
 					/* Scenario when just "move" is submitted. Tells adjRooms */
 					Room[] adjRooms = currPlayer.getCurrentRoom().getAdjacentRooms();
@@ -68,8 +76,12 @@ public class GameSystem {
 					for(Room r : adjRooms){
 						System.out.println(r.getRoomName());
 					}
+
+
 				}else if(command.equals("end")){
 					loop = false;
+
+
 				}else if(command.equals("where")){
 					System.out.println("You are located at '" + currPlayer.getCurrentRoom().getRoomName() + "'.");
 					if(currPlayer.getCurrentRoom() instanceof Set){
@@ -88,13 +100,62 @@ public class GameSystem {
 							}
 						}
 					}
+
+
 				}else if(command.equals("who")){
 					System.out.println("You are player " + currPlayer.getColor() + ". You have $" +
 					currPlayer.getMoney() + " and " + currPlayer.getCredits() + " credits. You are of rank " +
 					currPlayer.getRank() + ".");
-				}else if(command.equals("act") && currPlayer.getRole() != null){
-					//TODO
+
+
+				}else if(command.equals("take")){
+					if(currPlayer.getRole() != null) {
+						System.out.println("You already have a role. You cannot take another.");
+					}else{
+						//get the on and off card roles
+						Role[] offRoles = ((Set)currPlayer.getCurrentRoom()).getOffCardRoles();
+						Role[] onRoles = ((Set)currPlayer.getCurrentRoom()).getCurrScene().getRoles();
+						//loop through the role's matching it to their selection
+						for(int i = 0; i < offRoles.length; i++){
+							if(offRoles[i].getName().equals(words[1])){
+								if(offRoles[i].takeRole(currPlayer)){
+									System.out.println("You have successfully taken this off card role.");
+									continue;
+								}else{
+									System.out.println("You are not eligible for this role.");
+								}
+							}
+						}
+						for(int i = 0; i < onRoles.length; i++){
+							if(onRoles[i].getName().equals(words[1])){
+								if(onRoles[i].takeRole(currPlayer)){
+									System.out.println("You have successfully taken this on card role.");
+								}else{
+									System.out.println("You are not eligible for this role.");
+								}
+							}
+						}
+					}
+
+
+				}else if(command.equals("rehearse")){
+					if(alreadyRehearsed) {
+						System.out.println("You've already rehearsed this turn.");
+					}else {
+						currPlayer.rehearse();
+						alreadyRehearsed = true;
+					}
+
+				}else if(command.equals("act")){
+					if(alreadyActed) {
+						System.out.println("You've already acted this turn.");
+					}else {
+						currPlayer.act();
+						alreadyActed = true;
+					}
 				}
+
+
 			}
 			playersQueue.add(currPlayer);
 		}

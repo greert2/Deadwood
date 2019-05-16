@@ -16,14 +16,25 @@ public class Role {
 	public boolean isExtra() {
 		return !onCard;
 	}
-	
-	public void takeRole(Player player) {
-		this.actor = player;
-		return;
+
+
+	public boolean takeRole(Player p) {
+		if(this.roleAvailable() && (p.getRank() >= this.getReqRank())){
+			p.updateRole(this);
+			this.taken = true;
+			this.actor = p;
+			p.resetRehearseChips();
+			return true;
+		}
+		return false;
 	}
 	
 	public String getRoleInfo() {
 		return this.name + ": '" + this.getLine() + "'. It requires " + this.getReqRank() + " rank.";
+	}
+
+	public String getName(){ //TODO: add
+		return name;
 	}
 	
 	public boolean roleAvailable() {
@@ -42,6 +53,8 @@ public class Role {
 	public Player getPlayer() {
 		return actor;
 	}
+
+
 	
 	
 

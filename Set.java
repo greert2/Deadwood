@@ -18,9 +18,9 @@ public class Set extends Room{
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);
-        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role2.split("_", 3);
-        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
     }
 
     public Set(String roomName, int shotCounters, String role1, String role2, String role3) {
@@ -31,11 +31,11 @@ public class Set extends Room{
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);
-        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role2.split("_", 3);
-        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role3.split("_", 3);
-        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
     }
 
     public Set(String roomName, int shotCounters, String role1, String role2, String role3, String role4) {
@@ -46,13 +46,13 @@ public class Set extends Room{
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);
-        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[0] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role2.split("_", 3);
-        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role3.split("_", 3);
-        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
         arr = role4.split("_", 3);
-        offCardRoles[3] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], true);
+        offCardRoles[3] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
     }
 
     public int getShotsLeft() {

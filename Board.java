@@ -209,14 +209,14 @@ public class Board {
         return;
     }
 
-    public int updateSceneCnt() { //TODO: alter diagram
+    public int updateSceneCnt() { //TODO: remove?
         this.sceneCnt--;
         return this.sceneCnt;
     }
 
     public void resetSceneCnt() {
         this.sceneCnt = 10;
-    }
+    } //TODO: remove?
 
     public Room[] getAdjacentRooms(Room room) {
         Room temp = getSpecificRoom(room.getRoomName());
