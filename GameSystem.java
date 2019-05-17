@@ -111,7 +111,7 @@ public class GameSystem {
 									System.out.println("You have successfully taken this off card role.");
 									continue;
 								}else{
-									System.out.println("You are not eligible for this role.");
+									System.out.println("You cannot take this role.");
 								}
 							}
 						}
@@ -120,7 +120,7 @@ public class GameSystem {
 								if(onRoles[i].takeRole(currPlayer)){
 									System.out.println("You have successfully taken this on card role.");
 								}else{
-									System.out.println("You are not eligible for this role.");
+									System.out.println("You cannot take this role.");
 								}
 							}
 						}
