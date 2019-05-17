@@ -43,6 +43,26 @@ public class Player {
 	public void addCredits(int amount) {
 		this.credits += amount;
 	}
+
+	public boolean payMoney(int amount) { //TODO: add to diagram
+		if(this.getMoney() > amount){
+			this.dollars -= amount;
+			return true;
+		}else{
+			//Insufficient funds
+			return false;
+		}
+	}
+
+	public boolean payCredits(int amount) { //TODO: add to diagram
+		if(this.getCredits() > amount){
+			this.credits -= amount;
+			return true;
+		}else{
+			//Insufficient funds
+			return false;
+		}
+	}
 	
 	public void updateRole(Role role) {
 		this.role = role;
@@ -125,6 +145,18 @@ public class Player {
 
 	public int getRank() {
 		return rank;
+	}
+
+	public void printInfo(){
+		System.out.printf("The active player is player %s. They have $%d and %d credits\n",
+				this.getColor(), this.getMoney(), this.getCredits());
+		if(this.getRole() != null) {
+			System.out.printf("They are working the role %s, \"%s\"\n",
+					this.getRole().getName(), this.getRole().getLine());
+		}else{
+			//this player does not have a role
+			System.out.println("This player doesn't currently have a role.");
+		}
 	}
 
 }

@@ -23,7 +23,7 @@ public class GameSystem {
 		String line, command;
 		String[] words;
 		boolean loop;
-		boolean alreadyActed, alreadyRehearsed; //per turn
+		boolean alreadyActed, alreadyRehearsed, alreadyMoved; //per turn
 		/* Create list of colors to assign to players */
 		Queue<String> colors = new LinkedList<String>();
 		colors.add("blue");colors.add("cyan");colors.add("green");colors.add("orange");
@@ -52,6 +52,7 @@ public class GameSystem {
 			loop = true;
 			alreadyActed = false;
 			alreadyRehearsed = false;
+			alreadyMoved = false;
 			while(loop){
 				System.out.println("What would you like to do?");
 				line = scan.nextLine();
@@ -61,8 +62,11 @@ public class GameSystem {
 					if(currPlayer.getRole() != null) {
 						System.out.println("You must finish your role before moving!");
 					}else {
-						if(currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
+						if(!alreadyMoved && currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
 							System.out.println("Successfully moved to " + words[1]);
+							alreadyMoved = true;
+						}else if(alreadyMoved){
+							System.out.println("You can only move once per turn.");
 						}else{
 							System.out.println("Failed to move");
 						}
@@ -84,22 +88,7 @@ public class GameSystem {
 
 				}else if(command.equals("where")){
 					System.out.println("You are located at '" + currPlayer.getCurrentRoom().getRoomName() + "'.");
-					if(currPlayer.getCurrentRoom() instanceof Set){
-						Set currSet = ((Set)currPlayer.getCurrentRoom());
-						System.out.println("The set has these off-card roles:");
-						/* Print off-card roles */
-						for(int i = 0; i < currSet.getOffCardRoles().length; i++) {
-							System.out.println(i + ": " + currSet.getOffCardRoles()[i].getRoleInfo());
-						}
-						if(currSet.getCurrScene() != null){
-							System.out.println("The scene here is: '" + currSet.getCurrScene().getSceneName() + "'.");
-							System.out.println("It has on-card roles:");
-							/* Cycle through on card roles, number them increasing from last time */
-							for(int i = 0; i < ((Set)currPlayer.getCurrentRoom()).getCurrScene().getRoles().length; i++) {
-								System.out.println(i + ": " + currSet.getCurrScene().getRoles()[i].getRoleInfo());
-							}
-						}
-					}
+					currPlayer.getCurrentRoom().printInfo();
 
 
 				}else if(command.equals("who")){
@@ -108,7 +97,7 @@ public class GameSystem {
 					currPlayer.getRank() + ".");
 
 
-				}else if(command.equals("take")){
+				}else if(command.equals("take") && words.length == 2){
 					if(currPlayer.getRole() != null) {
 						System.out.println("You already have a role. You cannot take another.");
 					}else{
@@ -140,18 +129,41 @@ public class GameSystem {
 
 				}else if(command.equals("rehearse")){
 					if(alreadyRehearsed) {
+						//the player has already rehearsed on this turn
 						System.out.println("You've already rehearsed this turn.");
 					}else {
 						currPlayer.rehearse();
 						alreadyRehearsed = true;
 					}
 
+
 				}else if(command.equals("act")){
 					if(alreadyActed) {
+						//the player has already acted on this turn
 						System.out.println("You've already acted this turn.");
 					}else {
 						currPlayer.act();
 						alreadyActed = true;
+					}
+
+
+				}else if(command.equals("active?")) {
+					currPlayer.printInfo();
+
+
+				}else if(command.equals("upgrade") && words.length > 1) {
+					if(currPlayer.getCurrentRoom() instanceof CastingOffice) {
+						((CastingOffice)currPlayer.getCurrentRoom()).selectUpgrade(currPlayer, words[1]);
+					}else{
+						System.out.println("You must be in the Casting Office to upgrade");
+					}
+				}else if(command.equals("upgrade") && words.length == 1) {
+					//Just print the upgrades
+					if(currPlayer.getCurrentRoom() instanceof CastingOffice) {
+						((CastingOffice)currPlayer.getCurrentRoom()).printUpgrades();
+						System.out.println("To upgrade: upgrade [money/credits] [rank]");
+					}else{
+						System.out.println("You must be in the Casting Office to upgrade");
 					}
 				}
 
@@ -167,12 +179,12 @@ public class GameSystem {
 	}
 		
 	public boolean selectRoom(Room room) {
-		//TODO
+		//TODO: remove?
 		return true;
 	}
 	
 	public void takeMoney(Player player, int amount) {
-		//TODO
+		//TODO: remove?
 	}
 	
 	public int getDaysLeft() {

@@ -24,4 +24,6 @@ public abstract class Room {
     public void leave(Player p) { //TODO: ADD TO DIAGRAM
         playersHere.remove(p);
     }
+
+    public abstract void printInfo(); //TODO: ADD TO DIAGRAM! (TALK ABOUT ABSTRACT METHOD?)
 }

@@ -23,4 +23,8 @@ public class Trailer extends Room{
         int score = 0;
         return score;
     }
+
+    public void printInfo() {
+        System.out.println("This is your starting location on the board");
+    }
 }
