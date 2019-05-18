@@ -1,14 +1,14 @@
 # Deadwood-text
 
 To compile:
-    
+
     javac Deadwood.java
 
 To run:
 
-    java Deadwood
-    
-    
+    java Deadwood [player count]
+
+
 Commands:
 
 * move
