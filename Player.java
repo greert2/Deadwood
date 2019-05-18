@@ -44,7 +44,7 @@ public class Player {
 		this.credits += amount;
 	}
 
-	public boolean payMoney(int amount) { //TODO: add to diagram
+	public boolean payMoney(int amount) {
 		if(this.getMoney() > amount){
 			this.dollars -= amount;
 			return true;
@@ -103,6 +103,7 @@ public class Player {
 			}
 		}
 		//Win or Fail, acting on this role is over
+		this.getRole().done();
 		this.role = null;
 	}
 	
@@ -157,6 +158,10 @@ public class Player {
 			//this player does not have a role
 			System.out.println("This player doesn't currently have a role.");
 		}
+	}
+
+	public void clearRole() { //TODO: add to diagram
+		this.role = null;
 	}
 
 }

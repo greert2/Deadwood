@@ -19,6 +19,7 @@ public class Role {
 
 
 	public boolean takeRole(Player p) {
+		//give the role to player, if eligible
 		if(this.roleAvailable() && (p.getRank() >= this.getReqRank())){
 			p.updateRole(this);
 			this.taken = true;
@@ -54,8 +55,13 @@ public class Role {
 		return actor;
 	}
 
+	public void done() {
+		this.actor = null;
+	}
 
-	
+	public boolean isTaken() {
+		return taken;
+	}
 	
 
 }

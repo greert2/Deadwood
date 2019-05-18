@@ -17,7 +17,7 @@ public class CastingOffice extends Room {
         this.roomName = roomName;
     }
 
-    public void printUpgrades() { //TODO: update on diagram, used to be getUpgrades
+    public void printUpgrades() {
         System.out.println("Here are all upgrades and their cost in dollars and credits");
         for(int r = 0; r < upgrades.length; r++){
             System.out.printf("For rank %d, it is $%d, or %d credits.\n", r+2, upgrades[r][0], upgrades[r][1]);
@@ -26,6 +26,7 @@ public class CastingOffice extends Room {
     }
 
     public void selectUpgrade(Player p, String upgrade) {
+        //Gives the player the upgrade, if they have the proper funds
         String words[];
         String type;
         int rank;
@@ -34,6 +35,7 @@ public class CastingOffice extends Room {
             type = words[0];
             rank = Integer.parseInt(words[1]);
             if(type.equals("money")){
+                //wants to pay in $
                 if(p.payMoney(upgrades[rank-2][0])){
                     p.updateRank(rank);
                     System.out.printf("You are now rank %d and have $%d.\n", p.getRank(), p.getMoney());
@@ -41,7 +43,8 @@ public class CastingOffice extends Room {
                     System.out.printf("You do not have sufficient funds. Rank %d costs $%d.\n", rank, upgrades[rank-2][0]);
                 }
             }else if(type.equals("credits")) {
-                if(p.payMoney(upgrades[rank-2][1])){
+                //wants to pay in credits
+                if(p.payCredits(upgrades[rank-2][1])){
                     p.updateRank(rank);
                     System.out.printf("You are now rank %d and have %d credits.\n", p.getRank(), p.getCredits());
                 }else{

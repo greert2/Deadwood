@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Scene {
 
     private Role[] roles;
@@ -64,7 +66,26 @@ public class Scene {
     }
 
     public void wrap() {
-        //TODO: Need to implement
+        //this wraps the scene. Removes it from board and gives bonuses if needed
+        boolean needToGiveBonus = false;
+        ArrayList<Player> players;
+        Room currRoom = null;
+        Role[] roles = this.getRoles();
+        //Check for players on the scene
+        for(Role r : roles) {
+            if(r.getPlayer() != null) {
+                //If there are any players on the scene
+                needToGiveBonus = true;
+                currRoom = r.getPlayer().getCurrentRoom();
+            }
+        }
+
+        if(needToGiveBonus) {
+            ((Set)currRoom).givePlayersMainBonus();
+            ((Set)currRoom).givePlayersExtraBonus();
+        }
+        //Take the scene off the board
+        Board.getInstance().removeScene(this);
         return;
     }
 

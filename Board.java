@@ -4,11 +4,19 @@ import java.util.Collections;
 
 public class Board {
 
-    private int roomNum;
-    //private Room[] rooms;
-    private ArrayList<Room> rooms; //TODO: diagram.
+    private ArrayList<Room> rooms;
     private ArrayList<Scene> scenes;
     private int sceneCnt;
+    private static Board instance;
+
+    private Board() {}
+
+    public static Board getInstance() {
+        if(instance == null) {
+            instance = new Board();
+        }
+        return instance;
+    }
 
     public void startBoard() {
         createRooms();
@@ -64,7 +72,6 @@ public class Board {
         rooms.add(new CastingOffice("Casting Office"));
         rooms.add(new Trailer("Trailer"));
     }
-
 
     private void createScenes() {
         //final int TOTAL_SCENES = 40;
@@ -177,17 +184,20 @@ public class Board {
         return;
     }
 
+    public void removeScene(Scene s) {
+        //this scene has been wrapped.. remove it from board
+        scenes.remove(s);
+        updateSceneCnt();
+    }
+
     public void resetBoard() {
         ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
         for(Player p : players) {
             //move all players back to their trailers
             p.moveRoom(this.getSpecificRoom("Trailer"));
         }
-        removeScenes();
-        placeScenes();
         return;
     }
-
 
 
     public void placeScenes() {
@@ -209,24 +219,24 @@ public class Board {
         return;
     }
 
-    public int updateSceneCnt() { //TODO: remove?
-        this.sceneCnt--;
+    public int updateSceneCnt() {
+        this.sceneCnt = this.scenes.size();
+        if(this.sceneCnt == 1) {
+            //must end the day
+            GameSystem.getInstance().addDay();
+            this.resetBoard();
+            this.endDay();
+        }
         return this.sceneCnt;
     }
 
     public void resetSceneCnt() {
         this.sceneCnt = 10;
-    } //TODO: remove?
+    }
 
     public Room[] getAdjacentRooms(Room room) {
         Room temp = getSpecificRoom(room.getRoomName());
         return temp.getAdjacentRooms();
-    }
-
-    public void removeRoom(Room room) {
-        Room temp = getSpecificRoom(room.getRoomName());
-        //TODO: remove I think, we should only ever get rid of the scenes
-        return;
     }
 
     public ArrayList<Scene> getScenes() {

@@ -1,5 +1,14 @@
 # Deadwood-text
 
+To compile:
+    
+    javac Deadwood.java
+
+To run:
+
+    java Deadwood
+    
+    
 Commands:
 
 * move
@@ -19,3 +28,9 @@ Commands:
 * upgrade [money/credits] [desired rank]
   * upgrades the player if they have sufficient funds
   * ex: upgrade credits 2
+* act
+  * use to act on your role (if you have one)
+* rehearse
+  * use this to rehearse for your role (increase rehearse chips)
+* end
+  * use to end your turn

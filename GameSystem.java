@@ -4,14 +4,12 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class GameSystem {
-	private static GameSystem instance = new GameSystem();
-
+	private static GameSystem instance = null;
 	private int playerCnt;
-	//private Player[] players;
 	private int numCnt;
 	private int dayCnt;
 	private int dayTot;
-	private Player whosTurn;
+	private Player currPlayer;
 	private Queue<Player> playersQueue = new LinkedList<Player>();
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 
@@ -31,23 +29,22 @@ public class GameSystem {
 
 		System.out.println("Welcome to Deadwood!");
 
-		Board board = new Board();
-		board.startBoard();
-		//TODO:set up the board
+		Board.getInstance().startBoard();
 
 
 		/* Set up players */
 		for(int i = 0; i < playerCnt; i++) {
-			playerList.add(new Player(1, 0, 0, board.getSpecificRoom("Trailer"), colors.remove()));
+			playerList.add(new Player(1, 0, 0, Board.getInstance().getSpecificRoom("Trailer"), colors.remove()));
 			playersQueue.add(playerList.get(i)); //add all players to a queue for rotation
 		}
 
+		//set starting day, and the ending day
 		dayCnt = 0;
-		dayTot = 3; //for 2 to 3 players.. otherwise needs system to change this
+		dayTot = 2; //for 2 to 3 players.. otherwise needs system to change this (3 days)
 
-		//TODO: loop that is the turns of the player
+		//Give each player a turn, loop until game end
 		while(this.getDaysLeft() > 0) {
-			Player currPlayer = playersQueue.remove(); //pop the first player off the queue
+			currPlayer = playersQueue.remove(); //pop the first player off the queue
 			System.out.println("It is " + currPlayer.getColor() + "'s turn.");
 			loop = true;
 			alreadyActed = false;
@@ -55,14 +52,16 @@ public class GameSystem {
 			alreadyMoved = false;
 			while(loop){
 				System.out.println("What would you like to do?");
-				line = scan.nextLine();
+				line = scan.nextLine().toLowerCase();
 				words = line.split(" ", 2);
 				command = words[0].toLowerCase();
+
+
 				if(command.equals("move") && words.length == 2) {
 					if(currPlayer.getRole() != null) {
 						System.out.println("You must finish your role before moving!");
 					}else {
-						if(!alreadyMoved && currPlayer.moveRoom(board.getSpecificRoom(words[1]))){
+						if(!alreadyMoved && currPlayer.moveRoom(Board.getInstance().getSpecificRoom(words[1]))){
 							System.out.println("Successfully moved to " + words[1]);
 							alreadyMoved = true;
 						}else if(alreadyMoved){
@@ -83,48 +82,55 @@ public class GameSystem {
 
 
 				}else if(command.equals("end")){
+					//end players turn
 					loop = false;
 
 
 				}else if(command.equals("where")){
+					//tell player where it is located, and about scene & roles
 					System.out.println("You are located at '" + currPlayer.getCurrentRoom().getRoomName() + "'.");
 					currPlayer.getCurrentRoom().printInfo();
 
 
 				}else if(command.equals("who")){
+					//tells about the player asking. Color, rank, money, credits.
 					System.out.println("You are player " + currPlayer.getColor() + ". You have $" +
 					currPlayer.getMoney() + " and " + currPlayer.getCredits() + " credits. You are of rank " +
 					currPlayer.getRank() + ".");
 
 
 				}else if(command.equals("take") && words.length == 2){
+					//allow player to take role (in player's current room)
 					if(currPlayer.getRole() != null) {
 						System.out.println("You already have a role. You cannot take another.");
 					}else{
 						//get the on and off card roles
-						Role[] offRoles = ((Set)currPlayer.getCurrentRoom()).getOffCardRoles();
-						Role[] onRoles = ((Set)currPlayer.getCurrentRoom()).getCurrScene().getRoles();
-						//loop through the role's matching it to their selection
-						for(int i = 0; i < offRoles.length; i++){
-							if(offRoles[i].getName().equals(words[1])){
-								if(offRoles[i].takeRole(currPlayer)){
-									System.out.println("You have successfully taken this off card role.");
-									continue;
-								}else{
-									System.out.println("You cannot take this role.");
+						if(currPlayer.getCurrentRoom() instanceof Set){
+							Role[] offRoles = ((Set)currPlayer.getCurrentRoom()).getOffCardRoles();
+							Role[] onRoles = ((Set)currPlayer.getCurrentRoom()).getCurrScene().getRoles();
+							//loop through the role's matching it to their selection
+							for(int i = 0; i < offRoles.length; i++){
+								if(offRoles[i].getName().equals(words[1])){
+									if(offRoles[i].takeRole(currPlayer)){
+										System.out.println("You have successfully taken this off card role.");
+										continue;
+									}else{
+										System.out.println("You cannot take this role.");
+									}
 								}
 							}
-						}
-						for(int i = 0; i < onRoles.length; i++){
-							if(onRoles[i].getName().equals(words[1])){
-								if(onRoles[i].takeRole(currPlayer)){
-									System.out.println("You have successfully taken this on card role.");
-								}else{
-									System.out.println("You cannot take this role.");
+							for(int i = 0; i < onRoles.length; i++){
+								if(onRoles[i].getName().equals(words[1])){
+									if(onRoles[i].takeRole(currPlayer)){
+										System.out.println("You have successfully taken this on card role.");
+									}else{
+										System.out.println("You cannot take this role.");
+									}
 								}
 							}
+							}
 						}
-					}
+
 
 
 				}else if(command.equals("rehearse")){
@@ -148,10 +154,12 @@ public class GameSystem {
 
 
 				}else if(command.equals("active?")) {
+					//print info about the active player
 					currPlayer.printInfo();
 
 
 				}else if(command.equals("upgrade") && words.length > 1) {
+					//allow the player to upgrade when in the Casting Office
 					if(currPlayer.getCurrentRoom() instanceof CastingOffice) {
 						((CastingOffice)currPlayer.getCurrentRoom()).selectUpgrade(currPlayer, words[1]);
 					}else{
@@ -169,45 +177,60 @@ public class GameSystem {
 
 
 			}
-			playersQueue.add(currPlayer);
+			playersQueue.add(currPlayer); //add the player ending their turn back to the queue
 		}
 
 	}
 
 	public static GameSystem getInstance(){
+		//allow for singleton design
+		if(instance == null) {
+			instance = new GameSystem();
+		}
 		return instance;
 	}
-		
-	public boolean selectRoom(Room room) {
-		//TODO: remove?
-		return true;
-	}
-	
-	public void takeMoney(Player player, int amount) {
-		//TODO: remove?
-	}
+
 	
 	public int getDaysLeft() {
-		return dayTot - dayCnt;
+		return dayTot - this.getDay();
 	}
 
 	public int getDay() {
 		return dayCnt;
 	}
 	
-	public Player nextTurn() {
-		//TODO
-		return whosTurn;
+	public Player thisTurn() {
+		return currPlayer;
 	}
 	
 	public void calculateScores(Player[] players) {
-		//TODO
+		int highScore = 0;
+		int tempScore;
+		Player winner = null;
+		for(int i = 0; i < players.length; i++) {
+			tempScore = 0;
+			tempScore += players[i].getMoney();
+			tempScore += players[i].getCredits();
+			tempScore += (players[i].getRank() * 5);
+			if(tempScore > highScore) {
+				highScore = tempScore;
+				winner = players[i];
+			}
+		}
+		System.out.printf("Player %s wins!\n", winner.getColor());
 	}
 
 
 	public ArrayList<Player> getPlayerList() {
         return playerList;
     }
+
+    public void addDay() {
+		this.dayCnt++;
+		if(this.getDaysLeft() == 0) {
+			this.calculateScores(playerList.toArray(new Player[playerList.size()]));
+		}
+	}
 	
 	
 	

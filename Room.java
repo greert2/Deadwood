@@ -25,5 +25,5 @@ public abstract class Room {
         playersHere.remove(p);
     }
 
-    public abstract void printInfo(); //TODO: ADD TO DIAGRAM! (TALK ABOUT ABSTRACT METHOD?)
+    public abstract void printInfo();
 }

@@ -1,9 +1,10 @@
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Set extends Room{
     private Room[] adjacentRooms;
-//    private ArrayList<Player> playersHere;
     private String roomName;
     private Scene currScene;
     private int shotCounters;
@@ -87,44 +88,55 @@ public class Set extends Room{
         System.out.printf("%d shot counters remaining for this set.\n", this.getShotsLeft());
         if(this.getShotsLeft() == 0) {
             //The scene is finished and needs to be wrapped
-            System.out.println("This scene is now wrapped.");
+
             this.getCurrScene().wrap();
         }
         return;
     }
 
-    public void giveRole(Role role, Player player) {
+    public void giveRole(Role role, Player player) { //TODO: remove?
         return;
     }
 
     public void givePlayersMainBonus() {
         //roll 'budget' number of dice. Distribute to players (wraps around). Pay based on rolled numbers
-        Dice dice = new Dice(); //make static?
-        int[] rolls = dice.roll(this.getCurrScene().getBudget()); //roll 'budget' # of dice
-        Arrays.sort(rolls);
         Role[] roles = this.getCurrScene().getRoles();
+
+        Dice dice = new Dice();
+        int[] rolls = dice.roll(this.getCurrScene().getBudget()); //roll 'budget' # of dice
+        Arrays.sort(rolls); //put the rolls in order (least to greatest, we want opposite)
         int[] pointsForRoles; //array that adds dice amount when distributing among roles
 
         //pointsForRoles should hold added dice values for each role
         pointsForRoles = new int[roles.length];
-        int rollsIx = 0;
-        while(rollsIx < this.getCurrScene().getBudget()) { //distribute dice and add pts (check rulebook if unclear)
+        int rollsIx = rolls.length-1;
+        while(rollsIx > 0) { //distribute dice and add pts (check rulebook if unclear)
             for (int i = 0; i < roles.length; i++) {
                 pointsForRoles[i] += rolls[rollsIx];
-                rollsIx++;
+                rollsIx--;
             }
         }
         //give each player the correct points
         for(int i = 0; i < roles.length; i++) {
-            roles[i].getPlayer().addMoney(pointsForRoles[i]);
+            if(roles[i].getPlayer() != null){
+                roles[i].getPlayer().addMoney(pointsForRoles[i]);
+                System.out.printf("Player %s got $%d.\n", roles[i].getPlayer(), pointsForRoles[i]);
+                roles[i].getPlayer().clearRole();
+            }
         }
+
         return;
     }
 
     public void givePlayersExtraBonus() {
         //give each player on extra roles money equal to the rank req'd for their role
-        for(int i = 0; i < this.getOffCardRoles().length; i++) {
-            this.getOffCardRoles()[i].getPlayer().addMoney(this.getOffCardRoles()[i].getReqRank());
+        Role[] roles = this.getOffCardRoles();
+        for(int i = 0; i < roles.length; i++) {
+            if(roles[i].getPlayer() != null){
+                roles[i].getPlayer().addMoney(roles[i].getReqRank());
+                roles[i].getPlayer().clearRole();
+            }
+
         }
         return;
     }
@@ -133,14 +145,16 @@ public class Set extends Room{
         return offCardRoles;
     }
 
-    public void printInfo() { //TODO: ADD?
+    public void printInfo() {
+        //prints the info for this Set
         System.out.println("The set has these off-card roles:");
         /* Print off-card roles */
         for(int i = 0; i < this.getOffCardRoles().length; i++) {
             System.out.println(i + ": " + this.getOffCardRoles()[i].getRoleInfo());
         }
         if(this.getCurrScene() != null){
-            System.out.println("The scene here is: '" + this.getCurrScene().getSceneName() + "'.");
+            System.out.println("\nThe scene here is: '" + this.getCurrScene().getSceneName() + "'.");
+            System.out.println("Description: " + this.getCurrScene().getDescription());
             System.out.println("It has on-card roles:");
             /* Cycle through on card roles, number them increasing from last time */
             for(int i = 0; i < this.getCurrScene().getRoles().length; i++) {
