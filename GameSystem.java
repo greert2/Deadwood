@@ -52,7 +52,7 @@ public class GameSystem {
 			alreadyMoved = false;
 			while(loop){
 				System.out.println("What would you like to do?");
-				line = scan.nextLine().toLowerCase();
+				line = scan.nextLine();
 				words = line.split(" ", 2);
 				command = words[0].toLowerCase();
 
