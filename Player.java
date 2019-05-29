@@ -45,7 +45,7 @@ public class Player {
 	}
 
 	public boolean payMoney(int amount) {
-		if(this.getMoney() > amount){
+		if(this.getMoney() >= amount){
 			this.dollars -= amount;
 			return true;
 		}else{
@@ -55,7 +55,7 @@ public class Player {
 	}
 
 	public boolean payCredits(int amount) { //TODO: add to diagram
-		if(this.getCredits() > amount){
+		if(this.getCredits() >= amount){
 			this.credits -= amount;
 			return true;
 		}else{
@@ -107,12 +107,14 @@ public class Player {
 		this.role = null;
 	}
 	
-	public void rehearse() {
+	public boolean rehearse() {
 		if(this.getRole() == null) {
 			System.out.println("You must have a role to rehearse for it.");
+			return false;
 		}else {
 			this.rehearseChips += 1;
 			System.out.println("You have rehearsed. You now have " + this.getRehearseChips() + " chips.");
+			return true;
 		}
 	}
 	

@@ -24,11 +24,7 @@ public class Deadwood {
 
         GameSystem.getInstance().startGame(playerCnt);
 
-
         return;
     }
-
-
-
 
 }
