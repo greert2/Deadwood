@@ -1,4 +1,5 @@
 import Presentation.Views.DeadwoodFrame;
+import Presentation.Views.XMLParser;
 
 import javax.swing.*;
 
@@ -8,6 +9,8 @@ public class Controller {
         frame.setSize(1336, 920);
         frame.setResizable(false);
         frame.setVisible(true);
+
+        XMLParser.getInstance().printInfo();
     }
 
 
