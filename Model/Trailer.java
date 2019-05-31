@@ -1,3 +1,5 @@
+package Model;
+
 public class Trailer extends Room{
     private Room[] adjacentRooms;
     private Player[] playersHere;

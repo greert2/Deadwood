@@ -41,6 +41,25 @@ public class XMLParser {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             System.out.println("Element: " + node.getNodeName());
+
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                System.out.println(node.getNodeName());
+                //System.out.println(element.getElementsByTagName("set").item(0).getAttributes().item(0));
+            }
+
+
+
+
+
+
+//            NodeList childList = node.getChildNodes();
+//            for(int j = 0; j < childList.getLength(); j++){
+//                Node nodeChild = childList.item(j);
+//                //NamedNodeMap
+//                System.out.println("\tChild: " + nodeChild.getNodeName() + " Value: " + nodeChild.getNodeValue());
+//            }
+
         }
     }
 

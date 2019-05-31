@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +39,7 @@ public class Board {
 
         try{
             //read in the file
-            br = new BufferedReader(new FileReader("rooms.txt"));
+            br = new BufferedReader(new FileReader("Model/rooms.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -85,7 +87,7 @@ public class Board {
 
         try{
             //read in the file
-            br = new BufferedReader(new FileReader("scenes.txt"));
+            br = new BufferedReader(new FileReader("Model/scenes.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -128,7 +130,7 @@ public class Board {
 
         try{
             //read in the file
-            br = new BufferedReader(new FileReader("adjRooms.txt"));
+            br = new BufferedReader(new FileReader("Model/adjRooms.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {

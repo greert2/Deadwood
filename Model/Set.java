@@ -1,7 +1,6 @@
-import java.lang.reflect.Array;
+package Model;
+
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class Set extends Room{
     private Room[] adjacentRooms;

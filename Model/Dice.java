@@ -1,3 +1,4 @@
+package Model;
 
 public class Dice {
     private final int MAX_DICE_VALUE = 6;

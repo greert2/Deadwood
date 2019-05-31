@@ -1,3 +1,5 @@
+package Model;
+
 public class CastingOffice extends Room {
     private Room[] adjacentRooms;
     private Player[] playersHere;

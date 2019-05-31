@@ -1,5 +1,4 @@
-
-import java.util.ArrayList;
+import Model.GameSystem;
 
 public class Deadwood {
     //Tyler: Room, Scene, Board, Casting Office

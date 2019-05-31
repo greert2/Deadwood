@@ -1,4 +1,4 @@
-import java.util.Arrays;
+package Model;
 
 public class Player {
 	private int rank;
