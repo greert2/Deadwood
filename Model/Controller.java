@@ -35,4 +35,7 @@ public class Controller {
         return instance;
     }
 
+    public static IntroFrame getIntroFrame() {
+        return introFrame;
+    }
 }

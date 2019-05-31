@@ -2,9 +2,14 @@ package Presentation.Views;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
+
 import Presentation.Listeners.*;
 
 public class IntroFrame extends JFrame {
+
+    private int playerCnt;
+
     private JLabel labelMenu;
     private JLabel labelDescription;
     private JSlider slider;
@@ -42,6 +47,11 @@ public class IntroFrame extends JFrame {
         slider.setPaintLabels(true);
         slider.setSnapToTicks(true);
         slider.setBounds(25, 110, 250, 40);
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                playerCnt = ((JSlider)e.getSource()).getValue();
+            }
+        });
     }
 
 
@@ -62,5 +72,9 @@ public class IntroFrame extends JFrame {
 
         paneDeadwood.add(buttonPlay, new Integer(1));
 
+    }
+
+    public int getPlayerCnt() {
+        return playerCnt;
     }
 }

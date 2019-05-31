@@ -29,7 +29,7 @@ public class GameSystem {
 		colors.add("blue");colors.add("cyan");colors.add("green");colors.add("orange");
 		colors.add("pink");colors.add("red");colors.add("violet");colors.add("yellow");
 
-		System.out.println("Welcome to Deadwood!");
+		System.out.println("Welcome to Deadwood!" + playerCnt);
 
 		Board.getInstance().startBoard();
 
@@ -181,6 +181,35 @@ public class GameSystem {
 			}
 			playersQueue.add(currPlayer); //add the player ending their turn back to the queue
 		}
+
+	}
+
+	public void startGameGUI(int playerCnt) {
+		Scanner scan = new Scanner(System.in);
+		String line, command;
+		String[] words;
+		boolean loop;
+		boolean alreadyActed, alreadyRehearsed, alreadyMoved; //per turn
+		/* Create list of colors to assign to players */
+		Queue<String> colors = new LinkedList<String>();
+		colors.add("blue");colors.add("cyan");colors.add("green");colors.add("orange");
+		colors.add("pink");colors.add("red");colors.add("violet");colors.add("yellow");
+
+		System.out.println("Welcome to Deadwood!" + playerCnt);
+
+		Board.getInstance().startBoard();
+
+
+		/* Set up players */
+		for(int i = 0; i < playerCnt; i++) {
+			playerList.add(new Player(1, 0, 0, Board.getInstance().getSpecificRoom("Trailer"), colors.remove()));
+			playersQueue.add(playerList.get(i)); //add all players to a queue for rotation
+		}
+
+		//set starting day, and the ending day
+		dayCnt = 0;
+		dayTot = 2; //for 2 to 3 players.. otherwise needs system to change this (3 days)
+
 
 	}
 
