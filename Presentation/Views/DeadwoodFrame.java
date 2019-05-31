@@ -3,10 +3,16 @@ package Presentation.Views;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import Presentation.Listeners.*;
 import Model.*;
 
 public class DeadwoodFrame extends JFrame {
+    private static DeadwoodFrame instance;
+
     private JLabel labelGameBoard;
     private JLabel labelCard;
     private JLabel labelPlayer;
@@ -46,6 +52,8 @@ public class DeadwoodFrame extends JFrame {
     private static final String MOVE_BUTTON_TEXT = "Move";
     private static final String ACTIVE_PLAYER_LABEL_TEXT = "Active Player";
 
+    private ArrayList<JLabel> playerLabels;
+
 
     private DeadwoodFrame() {
         super(DEADWOOD_TITLE);
@@ -53,6 +61,13 @@ public class DeadwoodFrame extends JFrame {
         initializeLabels();
         initializeButtons();
         initializeDeadwoodPane();
+    }
+
+    public static DeadwoodFrame getInstance() {
+        if(instance == null) {
+            instance = new DeadwoodFrame();
+        }
+        return instance;
     }
 
 
@@ -201,7 +216,7 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood = getLayeredPane();
         paneDeadwood.add(labelGameBoard, new Integer(0)); // Add the board to the lowest layer
         paneDeadwood.add(labelCard, new Integer(1)); // Add the card to the lower layer
-        paneDeadwood.add(labelPlayer, new Integer(3));
+        //paneDeadwood.add(labelPlayer, new Integer(3));
         paneDeadwood.add(labelCurrPlayerImg, new Integer(2));
         paneDeadwood.add(labelActivePlayer, new Integer(2));
         paneDeadwood.add(labelMenu, new Integer(2));
@@ -224,7 +239,26 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood.add(buttonBank, new Integer(2));
     }
 
-    public void updatePlayerImage(Player p) {
-        
+    public void createPlayerLabels() {
+        //get list of players from the model
+        ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
+
+        int offset = 0;
+        //create a label for each
+        for(int i = 0; i < players.size(); i++) {
+            JLabel p = new JLabel();
+            //get info on player color and rank in order to select correct image
+            Player currPlayer = players.get(i);
+            String color = currPlayer.getColor().substring(0,1);
+            String rank = Integer.toString(currPlayer.getRank());
+            //example b1.png (color: blue, rank: 1)
+            String image = "Resources/dice/" + color + rank + ".png";
+            ImageIcon playerDiceIcon = new ImageIcon(image);
+            p.setIcon(playerDiceIcon);
+            p.setBounds(114, 227 + offset, playerDiceIcon.getIconWidth(), playerDiceIcon.getIconHeight());
+            paneDeadwood.add(p, new Integer(3));
+            offset += 30;
+        }
+
     }
 }
