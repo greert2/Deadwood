@@ -3,11 +3,13 @@ package Model;
 import Presentation.Views.DeadwoodFrame;
 import Presentation.Views.IntroFrame;
 import Presentation.Views.XMLParser;
+import java.util.ArrayList;
 
 public class Controller {
 
     private static Controller instance;
     private static IntroFrame introFrame;
+    private static DeadwoodFrame deadwoodFrame;
 
     private Controller() {}
 
@@ -20,11 +22,13 @@ public class Controller {
 
     public void showMainFrame(){
         introFrame.setVisible(false);
-        DeadwoodFrame frame = new DeadwoodFrame();
-        frame.setSize(1336, 920);
-        frame.setResizable(false);
-        frame.setVisible(true);
+        deadwoodFrame = new DeadwoodFrame();
+        deadwoodFrame.setSize(1336, 920);
+        deadwoodFrame.setResizable(false);
+        deadwoodFrame.setVisible(true);
 
+        //display the players
+        displayPlayers();
         XMLParser.getInstance().printInfo();
     }
 
@@ -33,6 +37,12 @@ public class Controller {
             instance = new Controller();
         }
         return instance;
+    }
+
+    public void displayPlayers(){
+        ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
+        deadwoodFrame.
+        for(int i = 0;)
     }
 
     public static IntroFrame getIntroFrame() {

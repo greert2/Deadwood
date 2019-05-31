@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import Presentation.Listeners.*;
+import Model.*;
 
 public class DeadwoodFrame extends JFrame {
     private JLabel labelGameBoard;
@@ -46,13 +47,12 @@ public class DeadwoodFrame extends JFrame {
     private static final String ACTIVE_PLAYER_LABEL_TEXT = "Active Player";
 
 
-    public DeadwoodFrame() {
+    private DeadwoodFrame() {
         super(DEADWOOD_TITLE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initializeLabels();
         initializeButtons();
         initializeDeadwoodPane();
-
     }
 
 
@@ -222,5 +222,9 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood.add(buttonSaloon, new Integer(2));
         paneDeadwood.add(buttonTrailer, new Integer(2));
         paneDeadwood.add(buttonBank, new Integer(2));
+    }
+
+    public void updatePlayerImage(Player p) {
+        
     }
 }
