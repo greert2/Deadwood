@@ -6,7 +6,7 @@ Law and the Old West/3/Charlie "Three Guns" Henderson cooperates with Johnny Law
 1_Rug Merchant_Don't leave my store!/2_Banker_Trust me./5_Talking Mule_Nice work, Johnny!
 Davy Crockett: A Drunkard's Tale/4/Robert enlists the aid of several farm animals in order to ascertain the efficacy of his new hangover remedy.
 4_The Duck_Waaaak!/6_His Brother_Waaaaaaak!
-The Life and Times of John Skywater/5/Disheartened by his lack of business acumen and his poor choice of investment partners, John Skywater sets off into the Cree Nation to convince them ti kidnap his wife.
+The Life and Times of John Skywater 1/5/Disheartened by his lack of business acumen and his poor choice of investment partners, John Skywater sets off into the Cree Nation to convince them ti kidnap his wife.
 5_Auctioneer_Going once!/6_General Custer_Go West!
 The Way the West Was Run/4/Jose explains patiently, but with thinly veiled contempt, the intricacies of Arizona bureaucracy, as though speaking to simple and distracted child.
 2_Town Drunk_Even me!/4_Squinting Miner_Sure we can!/5_Poltergeist_Wooooo!
@@ -36,7 +36,7 @@ Go West, You!/3/Susan and Peter encounter some of the perils of the Badlands: ru
 4_Ex-Convict_Never again!/6_Man with Onion_Fresh onions!
 Gum Commercial/2/Inspector Pete speaks to a riveted audience about the many hidden dangers of taffy, not the least of which is that taffy can kill you stone dead.
 2_Surprised Bison_Mmrrrrrph!/4_Man with Horn_Ta daaaa!
-The Life and Times of John Skywater/5/John discovers his long-lost sister Marcie, and instructs her in the ways of gunfighting and whiskey distillation.
+The Life and Times of John Skywater 2/5/John discovers his long-lost sister Marcie, and instructs her in the ways of gunfighting and whiskey distillation.
 3_Staggering Man_You never know!/5_Woman with Beer_Howdy, stranger!/6_Marcie_Welcome home!
 Gun! The Musical/6/A song and dance extravaganza, "Hunka Hunka Burnin' Lead."
 4_Looks like Elvis_Thankyouverymuch./5_Singing Dead Man_Yeah!/6_Apothecary_Such drugs I have.

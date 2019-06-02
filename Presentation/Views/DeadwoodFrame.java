@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Presentation.Listeners.*;
@@ -133,6 +132,7 @@ public class DeadwoodFrame extends JFrame {
         buttonAct.setBackground(Color.white);
         buttonAct.setBounds(iconGameBoard.getIconWidth() + 10, 190, 100, 20);
         buttonAct.addMouseListener(new ActButtonMouseListener());
+        buttonAct.setOpaque(true);
     }
 
     private void setupRehearseButton() {
@@ -147,6 +147,7 @@ public class DeadwoodFrame extends JFrame {
         buttonMove.setBackground(Color.white);
         buttonMove.setBounds(iconGameBoard.getIconWidth() + 10, 250, 100, 20);
         buttonMove.addMouseListener(new MoveButtonMouseListener());
+        //buttonMove.setVisible(false);
     }
 
     private void setupRoomButtons() {
@@ -215,7 +216,7 @@ public class DeadwoodFrame extends JFrame {
     private void initializeDeadwoodPane() {
         paneDeadwood = getLayeredPane();
         paneDeadwood.add(labelGameBoard, new Integer(0)); // Add the board to the lowest layer
-        paneDeadwood.add(labelCard, new Integer(1)); // Add the card to the lower layer
+        //paneDeadwood.add(labelCard, new Integer(1)); // Add the card to the lower layer
         //paneDeadwood.add(labelPlayer, new Integer(3));
         paneDeadwood.add(labelCurrPlayerImg, new Integer(2));
         paneDeadwood.add(labelActivePlayer, new Integer(2));
@@ -239,6 +240,10 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood.add(buttonBank, new Integer(2));
     }
 
+    public JLayeredPane getPaneDeadwood(){
+        return paneDeadwood;
+    }
+
     public void createPlayerLabels() {
         //get list of players from the model
         ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
@@ -253,12 +258,26 @@ public class DeadwoodFrame extends JFrame {
             String rank = Integer.toString(currPlayer.getRank());
             //example b1.png (color: blue, rank: 1)
             String image = "Resources/dice/" + color + rank + ".png";
-            ImageIcon playerDiceIcon = new ImageIcon(image);
+            ImageIcon playerDiceIcon = new ImageIcon(((new ImageIcon(image)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
             p.setIcon(playerDiceIcon);
-            p.setBounds(114, 227 + offset, playerDiceIcon.getIconWidth(), playerDiceIcon.getIconHeight());
-            paneDeadwood.add(p, new Integer(3));
-            offset += 30;
-        }
+            p.setBounds(1000 + offset, 410, playerDiceIcon.getIconWidth(), playerDiceIcon.getIconHeight());
+            p.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    paneDeadwood.moveToFront(p);
+                }
 
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    paneDeadwood.moveToBack(p);
+                }
+            });
+            paneDeadwood.add(p, new Integer(3));
+            offset += 20;
+            //JOptionPane.showMessageDialog(this,  "This is a test of the JOptionPane!", "Success!", JOptionPane.INFORMATION_MESSAGE, playerDiceIcon);
+            //996,414
+        }
+    }
+
+    public void addComponentToFrame(Component comp, int layer) {
+        paneDeadwood.add(comp, new Integer(layer));
     }
 }
