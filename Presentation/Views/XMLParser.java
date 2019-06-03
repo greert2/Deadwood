@@ -15,6 +15,7 @@ public class XMLParser {
     private static int setIx; //index for set, to be able to call nextSet()
 
     private static final int NUMBER_OF_SETS = 10;
+    private static final int NUMBER_OF_SCENES = 40;
 
     private XMLParser(boolean forBoard){
         setIx = 0;
@@ -68,7 +69,7 @@ public class XMLParser {
     public void selectScene(String sceneName) {
         //changes the set index to that of the SCENE with the passed name
         Node n;
-        for(int i = 0; i < NUMBER_OF_SETS; i++) {
+        for(int i = 0; i < NUMBER_OF_SCENES; i++) {
             n = doc.getElementsByTagName("card").item(i);
             Element element = (Element)n;
             if(element.getAttribute("name").equals(sceneName)){

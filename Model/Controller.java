@@ -279,6 +279,7 @@ public class Controller {
             int cardX = (int)rect.getX();
             int cardY = (int)rect.getY();
             //create and add roles
+            cardsParser.selectScene(sceneName);
             ArrayList<String[]> info = cardsParser.getCardRoleSizes();
             for(String[] role : info) {
                 JLabel roleLabel = new JLabel();
