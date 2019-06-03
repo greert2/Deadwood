@@ -15,8 +15,9 @@ public class CastingOffice extends Room {
             {40,25}
     };
 
-    public CastingOffice(String roomName) {
+    public CastingOffice(String roomName, int[] playerCoords) {
         this.roomName = roomName;
+        this.setPlayerCoords(playerCoords);
     }
 
     public void printUpgrades() {

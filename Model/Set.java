@@ -10,12 +10,13 @@ public class Set extends Room{
     private boolean finished;
     private Role[] offCardRoles;
 
-    public Set(String roomName, int shotCounters, String role1, String role2) {
+    public Set(String roomName, int shotCounters, int[] playerCoords, String role1, String role2) {
         offCardRoles = new Role[2];
         String arr[];
         this.roomName = roomName;
         this.finished = false;
         this.shotCounters = shotCounters;
+        this.setPlayerCoords(playerCoords);
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);
@@ -24,12 +25,13 @@ public class Set extends Room{
         offCardRoles[1] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
     }
 
-    public Set(String roomName, int shotCounters, String role1, String role2, String role3) {
+    public Set(String roomName, int shotCounters, int[] playerCoords, String role1, String role2, String role3) {
         offCardRoles = new Role[3];
         String arr[];
         this.roomName = roomName;
         this.finished = false;
         this.shotCounters = shotCounters;
+        this.setPlayerCoords(playerCoords);
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);
@@ -40,12 +42,13 @@ public class Set extends Room{
         offCardRoles[2] = new Role(arr[1], Integer.parseInt(arr[0]), arr[2], false);
     }
 
-    public Set(String roomName, int shotCounters, String role1, String role2, String role3, String role4) {
+    public Set(String roomName, int shotCounters, int[] playerCoords, String role1, String role2, String role3, String role4) {
         offCardRoles = new Role[4];
         String arr[];
         this.roomName = roomName;
         this.finished = false;
         this.shotCounters = shotCounters;
+        this.setPlayerCoords(playerCoords);
 
         //[ReqRank_RoleName_Phrase/RoleName_Phrase...]
         arr = role1.split("_", 3);

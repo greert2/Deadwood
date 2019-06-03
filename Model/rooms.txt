@@ -1,20 +1,20 @@
-Main Street/3
+Main Street/3/785/135
 1_Railroad Worker_I'm a steel-driven' man!/2_Falls off Roof_Aaaaiiiigggghh!/2_Woman in Black Dress_Well, I'll be!/4_Mayor McGinty_People of Deadwood!
-Saloon/2
+Saloon/2/743/245
 2_Woman in Red Dress_Come up and see me!/1_Reluctant Farmer_I ain't so sure about that!
-Ranch/2
+Ranch/2/269/660
 1_Shot in Leg_Ow! Me Leg!/2_Saucy Fred_That's what she said!/3_Man Under Horse_A little help here!
-Secret Hideout/3
+Secret Hideout/3/245/860
 1_Clumsy Pit Fighter_Hit me!/2_Thug with Knife_Meet Suzy, my murderin' knife./3_Dangerous Tom_There's two ways we can do this..../4_Penny, who is lost_Oh, woe! For I am lost!
-Bank/1
+Bank/1/615/617
 2_Suspicious Gentleman_Can you be more specific?/3_Flustered Teller_Would you like a large bill, sir?
-Church/2
+Church/2/741/691
 1_Dead Man_..../2_Crying Woman_Oh, the humanity!
-Hotel/3
+Hotel/3/1012/663
 1_Faro Player_Hit me!/1_Sleeping Drunkard_Zzzzzz... Whiskey!/2_Falls from Balcony_Arrrgghh!!/3_Australian Bartender_What'll it be, mate?
-Train Station/3
+Train Station/3/14/410
 1_Dragged by Train_Omgeezers!/1_Crusty Prospector_Aww, peaches!/2_Preacher with Bag_The Lord will provide/4_Cyrus the Gunfighter_Git to fightin' or git away!
-Jail/1
+Jail/1/391/210
 2_Prisoner in Cell_Zzzzzzz... Whiskey!/3_Feller in Irons_Ah kilt the wrong man!
-General Store/2
+General Store/2/290/417
 1_Man in Overalls_Looks like a storm's comin' in./3_Mister Keach_Howdy, stranger.

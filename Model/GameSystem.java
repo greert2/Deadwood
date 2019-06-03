@@ -185,9 +185,9 @@ public class GameSystem {
 	}
 
 	public void startGameGUI(int playerCnt) {
-		Scanner scan = new Scanner(System.in);
-		String line, command;
-		String[] words;
+		//Scanner scan = new Scanner(System.in);
+		//String line, command;
+		//String[] words;
 		boolean loop;
 		boolean alreadyActed, alreadyRehearsed, alreadyMoved; //per turn
 		/* Create list of colors to assign to players */
@@ -263,6 +263,14 @@ public class GameSystem {
 		}
 	}
 	
-	
+	public Player getCurrPlayer() {
+		return playersQueue.peek();
+	}
+
+	public void endTurn() {
+		Player p = playersQueue.remove();
+		playersQueue.add(p);
+		currPlayer = playersQueue.peek();
+	}
 	
 }

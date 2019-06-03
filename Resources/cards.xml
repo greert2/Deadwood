@@ -36,7 +36,7 @@
       <line>Nice work, Johnny!</line>
     </part>
   </card>
-  <card name="The Life and Times of John Skywater" img="03.png" budget="5">
+  <card name="The Life and Times of John Skywater 2" img="03.png" budget="5">
     <scene number="22">
       Disheartened by his lack of business acumen and his poor choice of
       investment partners, John Skywater sets off into the Cree Nation to
@@ -281,7 +281,7 @@
       <line>Ow!</line>
     </part>
   </card>
-  <card name="Shakespear in Lubbock" img="18.png" budget="3">
+  <card name="Shakespeare in Lubbock" img="18.png" budget="3">
     <scene number="23">
       William decides that it is time to be movin' on.  Julia convinces him to
       stick around just long enough to get into big trouble.
@@ -313,7 +313,7 @@
       <line>Fresh Onions!</line>
     </part>
   </card>
-  <card name="The Life and Times of John Skywater" img="20.png" budget="5">
+  <card name="The Life and Times of John Skywater 1" img="20.png" budget="5">
     <scene number="15">
       John discovers his long-lost sister Marcie, and instructs her in the ways
       of gunfighting and whiskey distillation.

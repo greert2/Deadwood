@@ -6,6 +6,7 @@ public abstract class Room {
     private Room[] adjacentRooms;
     private ArrayList<Player> playersHere = new ArrayList<Player>();
     private String roomName;
+    private int[] playerCoords;
 
     public void setAdjacentRooms(Room[] adjacentRooms) {
         this.adjacentRooms = adjacentRooms;
@@ -28,4 +29,12 @@ public abstract class Room {
     }
 
     public abstract void printInfo();
+
+    public int[] getPlayerCoords(){
+        return playerCoords;
+    }
+
+    public void setPlayerCoords(int[] coords){
+        this.playerCoords = coords;
+    }
 }

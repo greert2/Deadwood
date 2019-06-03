@@ -4,7 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Presentation.Listeners.*;
 import Model.*;
@@ -18,10 +21,12 @@ public class DeadwoodFrame extends JFrame {
     private JLabel labelMenu;
     private JLabel labelCurrPlayerImg;
     private JLabel labelActivePlayer;
+    private JLabel labelActivePlayerMoney;
+    private JLabel labelActivePlayerCredits;
 
     private JButton buttonAct;
     private JButton buttonRehearse;
-    private JButton buttonMove;
+    private JButton buttonEnd;
 
     private JButton buttonHotel;
     private JButton buttonChurch;
@@ -36,6 +41,8 @@ public class DeadwoodFrame extends JFrame {
     private JButton buttonBank;
     private JButton buttonTrailer;
 
+    //private Color bgColor = new Color(254,243,237);
+    private Color bgColor = new Color(182,113,61);
 
     private JLayeredPane paneDeadwood;
 
@@ -48,10 +55,11 @@ public class DeadwoodFrame extends JFrame {
     private static final String MENU_LABEL_TEXT = "Menu";
     private static final String ACT_BUTTON_TEXT = "Act";
     private static final String REHEARSE_BUTTON_TEXT = "Rehearse";
-    private static final String MOVE_BUTTON_TEXT = "Move";
+    //private static final String MOVE_BUTTON_TEXT = "Move";
     private static final String ACTIVE_PLAYER_LABEL_TEXT = "Active Player";
 
     private ArrayList<JLabel> playerLabels;
+    private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
 
     private DeadwoodFrame() {
@@ -77,6 +85,8 @@ public class DeadwoodFrame extends JFrame {
         setupMenuLabel();
         setupActivePlayerLabel(); //picture
         setupCurrPlayerImgLabel(); //image
+        setupActivePlayerLabelMoney(); //money
+        setupActivePlayerLabelCredits(); //credits
     }
 
     private void setupGameBoardLabel() {
@@ -115,22 +125,32 @@ public class DeadwoodFrame extends JFrame {
         labelActivePlayer.setBounds(iconGameBoard.getIconWidth() + 30, 0, 100, 20);
     }
 
+    private void setupActivePlayerLabelMoney() {
+        labelActivePlayerMoney = new JLabel("$0");
+        labelActivePlayerMoney.setBounds(iconGameBoard.getIconWidth() + 20, 75, 100, 20);
+    }
+
+    private void setupActivePlayerLabelCredits() {
+        labelActivePlayerCredits = new JLabel("0 credits");
+        labelActivePlayerCredits.setBounds(iconGameBoard.getIconWidth() + 20, 95, 100, 20);
+    }
+
     private void setupMenuLabel() {
         labelMenu = new JLabel(MENU_LABEL_TEXT);
-        labelMenu.setBounds(iconGameBoard.getIconWidth() + 40, 160, 100, 20);
+        labelMenu.setBounds(iconGameBoard.getIconWidth() + 40, 190, 100, 20);
     }
 
     private void initializeButtons() {
         setupActButton();
         setupRehearseButton();
-        setupMoveButton();
+        setupEndButton();
         setupRoomButtons();
     }
 
     private void setupActButton() {
         buttonAct = new JButton(ACT_BUTTON_TEXT);
         buttonAct.setBackground(Color.white);
-        buttonAct.setBounds(iconGameBoard.getIconWidth() + 10, 190, 100, 20);
+        buttonAct.setBounds(iconGameBoard.getIconWidth() + 10, 220, 100, 20);
         buttonAct.addMouseListener(new ActButtonMouseListener());
         buttonAct.setOpaque(true);
     }
@@ -138,93 +158,184 @@ public class DeadwoodFrame extends JFrame {
     private void setupRehearseButton() {
         buttonRehearse = new JButton(REHEARSE_BUTTON_TEXT);
         buttonRehearse.setBackground(Color.white);
-        buttonRehearse.setBounds(iconGameBoard.getIconWidth() + 10, 220, 100, 20);
+        buttonRehearse.setBounds(iconGameBoard.getIconWidth() + 10, 250, 100, 20);
         buttonRehearse.addMouseListener(new RehearseButtonMouseListener());
     }
 
-    private void setupMoveButton() {
-        buttonMove = new JButton(MOVE_BUTTON_TEXT);
-        buttonMove.setBackground(Color.white);
-        buttonMove.setBounds(iconGameBoard.getIconWidth() + 10, 250, 100, 20);
-        buttonMove.addMouseListener(new MoveButtonMouseListener());
-        //buttonMove.setVisible(false);
+    private void setupEndButton() {
+        buttonEnd = new JButton("End Turn");
+        buttonEnd.setBackground(Color.white);
+        buttonEnd.setBounds(iconGameBoard.getIconWidth() + 10, 280, 100, 20);
+        buttonEnd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().endTurn();
+            }
+        });
     }
 
     private void setupRoomButtons() {
         buttonHotel = new JButton("HOTEL");
         buttonHotel.setOpaque(true);
-        buttonHotel.setBackground(Color.orange);
+        buttonHotel.setBackground(bgColor);
         buttonHotel.setBounds(1025, 860, 100, 35);
 //        buttonHotel.setVisible(false);
+        roomMap.put("Hotel", buttonHotel);
+        buttonHotel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Hotel");
+            }
+        });
 
         buttonChurch = new JButton("CHURCH");
         buttonChurch.setOpaque(true);
-        buttonChurch.setBackground(Color.orange);
+        buttonChurch.setBackground(bgColor);
         buttonChurch.setBounds(675, 855, 100, 35);
+        roomMap.put("Church", buttonChurch);
+        buttonChurch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Church");
+            }
+        });
 
         buttonJail = new JButton("JAIL");
         buttonJail.setOpaque(true);
-        buttonJail.setBackground(Color.orange);
+        buttonJail.setBackground(bgColor);
         buttonJail.setBounds(315, 150, 100, 35);
+        roomMap.put("Jail", buttonJail);
+        buttonJail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Jail");
+            }
+        });
 
         buttonTrainStation = new JButton("TRAIN STATION");
         buttonTrainStation.setOpaque(true);
-        buttonTrainStation.setBackground(Color.orange);
+        buttonTrainStation.setBackground(bgColor);
         buttonTrainStation.setBounds(29, 190, 180, 40);
+        roomMap.put("Train Station", buttonTrainStation);
+        buttonTrainStation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Train Station");
+            }
+        });
 
         buttonGeneralStore = new JButton("GENERAL STORE");
         buttonGeneralStore.setOpaque(true);
-        buttonGeneralStore.setBackground(Color.orange);
+        buttonGeneralStore.setBackground(bgColor);
         buttonGeneralStore.setBounds(378, 402, 185, 40);
+        roomMap.put("General Store", buttonGeneralStore);
+        buttonGeneralStore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("General Store");
+            }
+        });
 
         buttonCastingOffice = new JButton("CASTING OFFICE");
         buttonCastingOffice.setOpaque(true);
-        buttonCastingOffice.setBackground(Color.orange);
+        buttonCastingOffice.setBackground(bgColor);
         buttonCastingOffice.setBounds(22, 468, 185, 40);
+        roomMap.put("Casting Office", buttonCastingOffice);
+        buttonCastingOffice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Casting Office");
+            }
+        });
 
         buttonSecretHideout = new JButton("SECRET HIDEOUT");
         buttonSecretHideout.setOpaque(true);
-        buttonSecretHideout.setBackground(Color.orange);
+        buttonSecretHideout.setBackground(bgColor);
         buttonSecretHideout.setBounds(26, 853, 200, 40);
+        roomMap.put("Secret Hideout", buttonSecretHideout);
+        buttonSecretHideout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Secret Hideout");
+            }
+        });
 
         buttonRanch = new JButton("RANCH");
         buttonRanch.setOpaque(true);
-        buttonRanch.setBackground(Color.orange);
+        buttonRanch.setBackground(bgColor);
         buttonRanch.setBounds(289, 597, 100, 40);
+        roomMap.put("Ranch", buttonRanch);
+        buttonRanch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Ranch");
+            }
+        });
 
         buttonMainStreet = new JButton("MAIN STREET");
         buttonMainStreet.setOpaque(true);
-        buttonMainStreet.setBackground(Color.orange);
+        buttonMainStreet.setBackground(bgColor);
         buttonMainStreet.setBounds(993, 148, 175, 40);
+        roomMap.put("Main Street", buttonMainStreet);
+        buttonMainStreet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Main Street");
+            }
+        });
 
         buttonSaloon = new JButton("SALOON");
         buttonSaloon.setOpaque(true);
-        buttonSaloon.setBackground(Color.orange);
+        buttonSaloon.setBackground(bgColor);
         buttonSaloon.setBounds(686, 402, 100, 40);
+        roomMap.put("Saloon", buttonSaloon);
+        buttonSaloon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Saloon");
+            }
+        });
 
         buttonTrailer = new JButton("TRAILERS");
         buttonTrailer.setOpaque(true);
-        buttonTrailer.setBackground(Color.orange);
+        buttonTrailer.setBackground(bgColor);
         buttonTrailer.setBounds(1033, 270, 120, 40);
+        roomMap.put("Trailer", buttonTrailer);
+        buttonTrailer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Trailer");
+            }
+        });
 
         buttonBank = new JButton("BANK");
         buttonBank.setOpaque(true);
-        buttonBank.setBackground(Color.orange);
+        buttonBank.setBackground(bgColor);
         buttonBank.setBounds(688, 594, 100, 40);
+        roomMap.put("Bank", buttonBank);
+        buttonBank.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller.getInstance().moveRoom("Bank");
+            }
+        });
     }
 
     private void initializeDeadwoodPane() {
         paneDeadwood = getLayeredPane();
+        this.getContentPane().setBackground(bgColor);
         paneDeadwood.add(labelGameBoard, new Integer(0)); // Add the board to the lowest layer
         //paneDeadwood.add(labelCard, new Integer(1)); // Add the card to the lower layer
         //paneDeadwood.add(labelPlayer, new Integer(3));
         paneDeadwood.add(labelCurrPlayerImg, new Integer(2));
         paneDeadwood.add(labelActivePlayer, new Integer(2));
         paneDeadwood.add(labelMenu, new Integer(2));
+        paneDeadwood.add(labelActivePlayerMoney, 2);
+        paneDeadwood.add(labelActivePlayerCredits, 2);
 
         paneDeadwood.add(buttonAct, new Integer(2));
         paneDeadwood.add(buttonRehearse, new Integer(2));
-        paneDeadwood.add(buttonMove, new Integer(2));
+        paneDeadwood.add(buttonEnd, new Integer(2));
 
         paneDeadwood.add(buttonHotel, new Integer(2));
         paneDeadwood.add(buttonChurch, new Integer(2));
@@ -244,38 +355,18 @@ public class DeadwoodFrame extends JFrame {
         return paneDeadwood;
     }
 
-    public void createPlayerLabels() {
-        //get list of players from the model
-        ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
-
-        int offset = 0;
-        //create a label for each
-        for(int i = 0; i < players.size(); i++) {
-            JLabel p = new JLabel();
-            //get info on player color and rank in order to select correct image
-            Player currPlayer = players.get(i);
-            String color = currPlayer.getColor().substring(0,1);
-            String rank = Integer.toString(currPlayer.getRank());
-            //example b1.png (color: blue, rank: 1)
-            String image = "Resources/dice/" + color + rank + ".png";
-            ImageIcon playerDiceIcon = new ImageIcon(((new ImageIcon(image)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
-            p.setIcon(playerDiceIcon);
-            p.setBounds(1000 + offset, 410, playerDiceIcon.getIconWidth(), playerDiceIcon.getIconHeight());
-            p.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    paneDeadwood.moveToFront(p);
-                }
-
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    paneDeadwood.moveToBack(p);
-                }
-            });
-            paneDeadwood.add(p, new Integer(3));
-            offset += 20;
-            //JOptionPane.showMessageDialog(this,  "This is a test of the JOptionPane!", "Success!", JOptionPane.INFORMATION_MESSAGE, playerDiceIcon);
-            //996,414
-        }
+    public JLabel getLabelCurrPlayerImg(){
+        return labelCurrPlayerImg;
     }
+
+    public JLabel getLabelActivePlayerMoney() {
+        return labelActivePlayerMoney;
+    }
+
+    public JLabel getLabelActivePlayerCredits() {
+        return labelActivePlayerCredits;
+    }
+
 
     public void addComponentToFrame(Component comp, int layer) {
         paneDeadwood.add(comp, new Integer(layer));

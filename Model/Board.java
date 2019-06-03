@@ -43,11 +43,14 @@ public class Board {
 
             String line;
             while ((line = br.readLine()) != null) {
-                //Alternating syntax: First line is [RoomName/ShotCounters]
+                //Alternating syntax: First line is [RoomName/ShotCounters/x/y]
                 String[] arr;
-                arr = line.split("/", 3);
+                arr = line.split("/", 4);
                 tempRoomName = arr[0];
                 tempShotCounters = Integer.parseInt(arr[1]);
+                int playerCoordsX = Integer.parseInt(arr[2]);
+                int playerCoordsY = Integer.parseInt(arr[3]);
+                int[] playerCoords = new int[]{playerCoordsX, playerCoordsY};
                 //tempDescription = arr[2];
 
                 // and next line is [ReqRank_RoleName_Phrase/ReqRank_RoleName_Phrase...]
@@ -55,12 +58,12 @@ public class Board {
                 arr = line.split("/", 4);
                 if(arr.length == 3) {
                     //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1], arr[2]);
-                    rooms.add(new Set(tempRoomName, tempShotCounters, arr[0], arr[1], arr[2]));
+                    rooms.add(new Set(tempRoomName, tempShotCounters, playerCoords, arr[0], arr[1], arr[2]));
                 }else if(arr.length == 2){
                     //scenes[sceneIx] = new Scene(tempSceneName, tempDescription, tempBudget, arr[0], arr[1]);
-                    rooms.add(new Set(tempRoomName, tempShotCounters, arr[0], arr[1]));
+                    rooms.add(new Set(tempRoomName, tempShotCounters, playerCoords, arr[0], arr[1]));
                 }else if(arr.length == 4) {
-                    rooms.add(new Set(tempRoomName, tempShotCounters, arr[0], arr[1], arr[2], arr[3]));
+                    rooms.add(new Set(tempRoomName, tempShotCounters, playerCoords, arr[0], arr[1], arr[2], arr[3]));
                 }
                 roomIx++;
             }
@@ -71,8 +74,8 @@ public class Board {
         }
 
         //Add remaining two specialty rooms
-        rooms.add(new CastingOffice("Casting Office"));
-        rooms.add(new Trailer("Trailer"));
+        rooms.add(new CastingOffice("Casting Office", new int[]{13,509}));
+        rooms.add(new Trailer("Trailer", new int[]{1000,410}));
     }
 
     private void createScenes() {

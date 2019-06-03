@@ -5,8 +5,9 @@ public class Trailer extends Room{
     private Player[] playersHere;
     private String roomName;
 
-    public Trailer(String roomName) {
+    public Trailer(String roomName, int[] playerCoords) {
         this.roomName = roomName;
+        this.setPlayerCoords(playerCoords);
     }
 
     public void setAdjacentRooms(Room[] adjacentRooms) {
