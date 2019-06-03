@@ -519,7 +519,7 @@
       <line>Hold it right there!</line>
     </part>
   </card>
-  <card name="Swing 'em Wide" img="32.png" budget="6">
+  <card name="Swing 'em Wide 1" img="32.png" budget="6">
     <scene number="19">
       Black Jack invites Dixon and The Captain to a late-night poker
       game. Little do they know that Gertrude and Isabella await them at the
@@ -538,7 +538,7 @@
       <line>Fold!</line>
     </part>
   </card>
-  <card name="Swing 'em Wide" img="33.png" budget="6">
+  <card name="Swing 'em Wide 2" img="33.png" budget="6">
     <scene number="35">
       Hector makes a surprising discovery behind the Chinese grocery store.
     </scene>

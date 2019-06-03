@@ -3,6 +3,7 @@ package Presentation.Views;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class XMLParser {
     private static XMLParser instanceForBoard;
@@ -99,7 +100,61 @@ public class XMLParser {
             h = Integer.parseInt(areaElement.getAttribute("h"));
             w = Integer.parseInt(areaElement.getAttribute("w"));
         }
-        return new int[]{ x, y, h, w};
+        return new int[]{x, y, h, w};
+    }
+
+    public ArrayList<String[]> getSetRoleSizes() {
+        /* Return ArrayList of structure [roleName, x, y, h, w], [roleName, x, y, h, w], ...  */
+        ArrayList<String[]> output = new ArrayList<String[]>();
+        Node n = doc.getElementsByTagName("set").item(setIx);
+        if(n instanceof Element) {
+            Element docElement = (Element)n;
+            Element partElement = (Element)docElement.getElementsByTagName("parts").item(0);
+            NodeList partsList = partElement.getElementsByTagName("part");
+            /* Loop through all parts on this specific set */
+            for(int i = 0; i < partsList.getLength(); i++) {
+                Element part = (Element)partsList.item(i);
+                String partName = part.getAttribute("name");
+                /* Get this part's area (sizes) */
+                Element areaElement = (Element)part.getElementsByTagName("area").item(0);
+                output.add(new String[]{
+                        partName,
+                        areaElement.getAttribute("x"),
+                        areaElement.getAttribute("y"),
+                        areaElement.getAttribute("h"),
+                        areaElement.getAttribute("w")
+                });
+            }
+
+        }
+        return output;
+    }
+
+    public ArrayList<String[]> getCardRoleSizes() {
+        /* Return ArrayList of structure [roleName, x, y, h, w], [roleName, x, y, h, w], ...  */
+        ArrayList<String[]> output = new ArrayList<String[]>();
+        Node n = doc.getElementsByTagName("card").item(setIx);
+        if(n instanceof Element) {
+            Element docElement = (Element)n;
+            NodeList partsList = docElement.getElementsByTagName("part");
+            /* Loop through all parts on this specific card */
+            for(int i = 0; i < partsList.getLength(); i++) {
+                Element part = (Element)partsList.item(i);
+                String partName = part.getAttribute("name");
+                /* Get this part's area (sizes) */
+                Element areaElement2 = (Element)part.getElementsByTagName("area").item(0);
+                output.add(new String[]{
+                        partName,
+                        areaElement2.getAttribute("x"),
+                        areaElement2.getAttribute("y"),
+                        areaElement2.getAttribute("h"),
+                        areaElement2.getAttribute("w")
+                });
+
+            }
+
+        }
+        return output;
     }
 
     public String getSceneImagePath(String sceneName) {

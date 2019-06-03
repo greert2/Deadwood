@@ -99,4 +99,8 @@ public class Scene {
         return sceneName;
     }
 
+    public boolean getVisited() {
+        return visited;
+    }
+
 }

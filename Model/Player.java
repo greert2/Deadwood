@@ -166,4 +166,43 @@ public class Player {
 		this.role = null;
 	}
 
+	public boolean takeRole(String roleName) {
+		//allow player to take role (in player's current room)
+		if(this.getRole() != null) {
+			System.out.println("You already have a role. You cannot take another.");
+		}else{
+			//get the on and off card roles
+			if(this.getCurrentRoom() instanceof Set){
+				Role[] offRoles = ((Set)this.getCurrentRoom()).getOffCardRoles();
+				Role[] onRoles = ((Set)this.getCurrentRoom()).getCurrScene().getRoles();
+				//loop through the role's matching it to their selection
+				for(int i = 0; i < offRoles.length; i++){
+					if(offRoles[i].getName().equals(roleName)){
+						if(offRoles[i].takeRole(this)){
+							this.updateRole(offRoles[i]);
+							System.out.println("You have successfully taken this off card role.");
+							return true;
+						}else{
+							System.out.println("You cannot take this role.");
+							return false;
+						}
+					}
+				}
+				for(int i = 0; i < onRoles.length; i++){
+					if(onRoles[i].getName().equals(roleName)){
+						if(onRoles[i].takeRole(this)){
+							this.updateRole(onRoles[i]);
+							System.out.println("You have successfully taken this on card role.");
+							return true;
+						}else{
+							System.out.println("You cannot take this role.");
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 }

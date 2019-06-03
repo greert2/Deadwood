@@ -20,8 +20,11 @@ public abstract class Room {
         return roomName;
     }
 
-    public void visit(Player p) { //TODO: ADD TO DIAGRAM
+    public void visit(Player p) {
         playersHere.add(p);
+        if(this instanceof Set) {
+            ((Set)this).getCurrScene().visit();
+        }
     }
 
     public void leave(Player p) { //TODO: ADD TO DIAGRAM

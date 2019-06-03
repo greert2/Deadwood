@@ -6,6 +6,8 @@ import Presentation.Views.XMLParser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,9 +20,11 @@ public class Controller {
     /* A map of set names to their scene card object */
     private HashMap<String, JLabel> roomSceneCardMap = new HashMap<String, JLabel>();//<sceneName, JLabel (scene img)>
     private HashMap<String, JLabel> playerMap = new HashMap<String, JLabel>(); //<playerColor, JLabel (player img)>
+    //private HashMap<String, JLabel> offCardRoleMap = new HashMap<String, JLabel>(); //<roleName, label>
     //private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
     private Player currPlayer;
+    private boolean alreadyMoved;
 
     private Controller() {}
 
@@ -43,11 +47,13 @@ public class Controller {
         /* Create scenes */
         createSceneLabels();
         createPlayerLabels();
+        createOffCardRoles();
         //XMLParser.getInstance().printInfo();
-        this.flipSceneCard(((Set)Board.getInstance().getRooms().get(0)).getCurrScene().getSceneName());
+
 
         //set currPlayer initially
         this.currPlayer = GameSystem.getInstance().getCurrPlayer();
+        this.alreadyMoved = false;
 
         //ArrayList<Room> rooms = Board.getInstance().getRooms();
         //System.out.println(rooms.get(0).getRoomName());
@@ -74,7 +80,7 @@ public class Controller {
         int offset = 0;
         for(int i = 0; i < players.size(); i++) {
             //get player's set, place player here based on number of players here
-            if(players.get(i).getCurrentRoom() != null) {
+            if(players.get(i).getCurrentRoom() != null && players.get(i).getRole() == null) {
                 //get the current model player
                 Player currPlayer = players.get(i);
                 //get the player gui component
@@ -161,9 +167,59 @@ public class Controller {
         }
     }
 
+    public void createOffCardRoles() {
+        XMLParser boardParser = XMLParser.getInstanceForBoard();
+        //XMLParser cardsParser = XMLParser.getInstanceForCards();
+        /* Get scenes from the model */
+        ArrayList<Room> rooms = Board.getInstance().getRooms();
+        Scene scene;
+
+        /* get the layeredPane and the sizes */
+        JLayeredPane pane = DeadwoodFrame.getInstance().getLayeredPane();
+
+        /* loop through rooms */
+        for(int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+
+            if(room instanceof Set) {
+                boardParser.selectSet(room.getRoomName());
+                ArrayList<String[]> info = boardParser.getSetRoleSizes();
+                for(String[] role : info){
+                    JLabel roleLabel = new JLabel();
+                    roleLabel.setBounds(
+                            Integer.parseInt(role[1]),
+                            Integer.parseInt(role[2]),
+                            Integer.parseInt(role[3]),
+                            Integer.parseInt(role[4])
+                    );
+                    roleLabel.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            if(GameSystem.getInstance().getCurrPlayer().takeRole(role[0])){
+                                //player got the role! move them
+                                JLabel currPlayerImg = playerMap.get(currPlayer.getColor());
+                                Icon img = currPlayerImg.getIcon();
+                                currPlayerImg.setBounds(
+                                        Integer.parseInt(role[1])+4,
+                                        Integer.parseInt(role[2])+4,
+                                        img.getIconWidth(),
+                                        img.getIconHeight()
+                                );
+                            }
+                        }
+                    });
+                    //add role to the view
+                    DeadwoodFrame.getInstance().addComponentToFrame(roleLabel, 2);
+                }
+            }
+
+        }
+    }
+
     public void endTurn() {
         GameSystem.getInstance().endTurn(); //ends current players turn
         this.currPlayer = GameSystem.getInstance().getCurrPlayer();
+        this.alreadyMoved = false;
         //update active player gui
         updateActivePlayerGUI();
     }
@@ -180,14 +236,31 @@ public class Controller {
     }
 
     public boolean moveRoom(String roomName) {
-        if(currPlayer.moveRoom(Board.getInstance().getSpecificRoom(roomName))) {
+        Room room = Board.getInstance().getSpecificRoom(roomName);
+        boolean alreadyVisited = true; //set to true so we are more likely to not create double scene cards
+        if(room instanceof Set){
+            alreadyVisited = ((Set)room).getCurrScene().getVisited();
+        }
+        if(!alreadyMoved && currPlayer.getRole() == null && currPlayer.moveRoom(room)) {
+            //flip scene card and create roles (if needed)
+            if(!alreadyVisited) { //!alreadyVisited implies it IS valid and not visited
+                flipSceneCard(((Set)room).getCurrScene().getSceneName());
+            }
             //player has moved
             System.out.println("Player " + currPlayer.getColor() + " has moved to " + roomName);
             displayPlayers();
+            this.alreadyMoved = true;
             return true;
+        }else if(alreadyMoved){
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You have already moved this turn",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        }else if(currPlayer.getRole() != null) {
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You can't move if you are working on a role",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        }else {
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You cannot move here",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
         }
-        JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(),  "You cannot move here",
-                "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
         return false;
     }
 
@@ -201,7 +274,40 @@ public class Controller {
             ImageIcon img = new ImageIcon(imgPath);
             roomSceneCardMap.get(sceneName).setIcon(img);
 
+            JLabel sceneCard = roomSceneCardMap.get(sceneName);
+            Rectangle rect = sceneCard.getBounds();
+            int cardX = (int)rect.getX();
+            int cardY = (int)rect.getY();
             //create and add roles
+            ArrayList<String[]> info = cardsParser.getCardRoleSizes();
+            for(String[] role : info) {
+                JLabel roleLabel = new JLabel();
+                roleLabel.setBounds(
+                        cardX + Integer.parseInt(role[1]) + 4,
+                        cardY + Integer.parseInt(role[2]) + 4,
+                        Integer.parseInt(role[3]),
+                        Integer.parseInt(role[4])
+                );
+                roleLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (GameSystem.getInstance().getCurrPlayer().takeRole(role[0])) {
+                            //player got the role! move them
+                            JLabel currPlayerImg = playerMap.get(currPlayer.getColor());
+                            Icon img = currPlayerImg.getIcon();
+                            currPlayerImg.setBounds(
+                                    cardX + Integer.parseInt(role[1]) + 4,
+                                    cardY + Integer.parseInt(role[2]) + 4,
+                                    img.getIconWidth(),
+                                    img.getIconHeight()
+                            );
+                        }
+                    }
+                });
+                //add role to the view
+                DeadwoodFrame.getInstance().addComponentToFrame(roleLabel, 5);
+                System.out.println("Added " + role[0]);
+            }
         }
     }
 
