@@ -20,7 +20,7 @@ Ol' Shooter and Little Doll/4/Shooter discovers that he has been proceeding for 
 1_Sleeping Man_Snnkkk snnk sank/2_Man with Pig_Tally-Hooo!/4_Shooter_Where's my britches?
 The Robbers of Trains/4/Coogan confronts the toughest thug in his gang, Big Jake, in an abbreviated knife fight. Coogan settles the dispute with fearless guile and a kick in the family jewels.
 1_Buster_One two three go!/4_Man Reading Paper_Ouchie!/5_Fat Pete_Nice kick, boss!
-Jesse James: Man of Action/5/Jesse's brothers Jed and Henry throw him a surprise birthday party. Jesse's nerves get the better of him when the birthday cake explodes.
+Jesse James: Man of Action 2/5/Jesse's brothers Jed and Henry throw him a surprise birthday party. Jesse's nerves get the better of him when the birthday cake explodes.
 2_Shot in Back_Arrrggh/4_Shot in Leg_Ooh, lordy!/5_Leaps into Cake_Dangit, Jesse!
 Beyond the Pail: Life without Lactose/2/Henry discovers for the first time that his ability to digest cream has disappeared along with his hair. Other cowboys attempt to console him.
 6_Martin_Have you tried soy cheese?
@@ -43,7 +43,7 @@ Gun! The Musical/6/A song and dance extravaganza, "Hunka Hunka Burnin' Lead."
 One False Step for Mankind/6/After a dozen failed attempts, one rocket carries Horatio and his six children to the Moon, where they enjoy a picnic and a spirited game of badminton.
 1_Flustered Man_Well, I never!/2_Space Monkey_Ook!/5_Cowbot Dan_Bzzzzzt
 Humor at the Expense of Others/5/Phil and his cohort of unfeeling smart-mouths make fun of Sancho and his great big hat.
-2_Jailer_You there!/4_Mephistopheles_Be not afraid!/5_Breaks a window_Oops!
+2_Jailer_You there!/4_Mephistopheles_Be not afraid!/5_Breaks a Window_Oops!
 Thirteen the Hard Way/5/After some delay, the Pony Express arrives. Isaac, Gwen, Francis, Terry, Conrad, Brooke, Jerry, Howard, McNeill, Jones, Spike, Cornwall and Crawford are all there.
 1_Man in Poncho_Howdy, Jones!/3_Ecstatic Housewife_This is fine!/5_Isaac_The mail!
 The Search for Maggie White/6/Alone in the wilderness, Maggie makes the best of her situation. In what seems like no time at all, she constructs a sturdy two-story house form branches and mud.
@@ -54,7 +54,7 @@ Picante Sauce Commercial/2/A dozen grizzled cowboys surround a fire. Suddenly, t
 3_Bewhisker'd Cowpoke_Oh, sweet Lord!/5_Dog_Wurf!
 My Years on the Prairie/5/Louise takes instructions from Henry, the neighbor boy, in an absurdly suggestive explanation of how to plow a field.
 2_Willard_Ain't that a sight?/3_Leprechaun_Begorrah!/5_Startled Ox_Mrr?
-Jesse James: Man of Action/5/A hail of gunfire results when Jesse's friend Barton marries Jesse's childhood sweetheart.
+Jesse James: Man of Action 1/5/A hail of gunfire results when Jesse's friend Barton marries Jesse's childhood sweetheart.
 1_Shot in Head_Arrrgh!/4_Leaps Out of Cake_Oh, for Pete's sake!/6_Shot Three Times_Ow! Ow! Ow!
 Davy Crockett: A Drunkard's Tale/4/In an absurd dream sequence, Crockett recalls an episode of fear and chaos in which his childhood friend Timmy was trapped at the bottom of a well.
 2_Voice of God_Grab hold, son!/3_Hands of God_!/4_Jack Kemp_America!

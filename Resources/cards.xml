@@ -150,7 +150,7 @@
       <area x="83" y="47" h="40" w="40" />
       <line>Nonsense, Frank!</line>
     </part>
-    <part name="Man in Fire" level="5">
+    <part name="Man on Fire" level="5">
       <area x="145" y="47" h="40" w="40" />
       <line>It burns!</line>
     </part>
@@ -245,7 +245,7 @@
       <line>Ta daaaa!</line>
     </part>
   </card>
-  <card name="Jesse James: Man of Action" img="16.png" budget="5">
+  <card name="Jesse James: Man of Action 2" img="16.png" budget="5">
     <scene number="8">
       Jesse's brothers Jed and Henry throw him a surprise birthday party.
       Jesse's nerves get the better of him when the birthday cake explodes.
@@ -395,7 +395,7 @@
       <line>Wurf!</line>
     </part>
   </card>
-  <card name="Jesse James: Man of Action" img="25.png" budget="5">
+  <card name="Jesse James: Man of Action 1" img="25.png" budget="5">
     <scene number="14">
       A hail of gunfire results when Jesse's friend Barton marries Jesse's
       childhood sweetheart.
