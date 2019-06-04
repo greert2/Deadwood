@@ -72,11 +72,12 @@ public class Player {
 		this.rank = rank;
 	}
 	
-	public void act() {
+	public String act() {
 		//Does: roll (add practice chips), compare to value, pay/not
+		String output = null;
 		if(this.getRole() == null) {
 			System.out.println("You must have a role to act.");
-			return;
+			return "You must have a role to act.";
 		}
 		Dice dice = new Dice();
 		int[] rollArr = dice.roll(1);
@@ -89,22 +90,26 @@ public class Player {
 				this.addCredits(1);
 				this.addMoney(1);
 				System.out.println("You acted successfully! You gained $1 and 1 credit.");
+				output = "You acted successfully! You gained $1 and 1 credit.";
 			}else{
 				//NOT an extra
 				((Set)this.getCurrentRoom()).removeShotCounter();
 				this.addCredits(2);
 				System.out.println("You acted successfully! You gained 2 credits.");
+				output = "You acted successfully! You gained 2 credits.";
 			}
 		}else{
 			if(this.getRole().isExtra()) {
 				//Extra role failed, but still gets a dollar!
 				this.addMoney(1);
 				System.out.println("You failed as an extra, but you got a dollar for trying.");
+				output = "You failed as an extra, but you got a dollar for trying.";
 			}
 		}
 		//Win or Fail, acting on this role is over
 		this.getRole().done();
 		this.role = null;
+		return output;
 	}
 	
 	public boolean rehearse() {

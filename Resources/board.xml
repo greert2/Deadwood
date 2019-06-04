@@ -157,7 +157,7 @@
       <take number="1"><area x="442" y="156" h="47" w="47" /></take>
     </takes>
     <parts>
-      <part name="Prisoner In Cell" level="2">
+      <part name="Prisoner in Cell" level="2">
         <area x="519" y="25" h="46" w="46" />
         <line>Zzzzzzz...Whiskey!</line>
       </part>

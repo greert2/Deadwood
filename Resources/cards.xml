@@ -51,7 +51,7 @@
       <line>Go West!</line>
     </part>
   </card>
-  <card name="My Years on the Prairie" img="04.png" budget="5">
+  <card name="My Years on the Prairie 2" img="04.png" budget="5">
     <scene number="32">
       Virgil and Stacy set out at midnight to track down the stray cows, unaware
       that they are being pursued by inch-high aliens from outer space.
@@ -78,7 +78,7 @@
       <area x="20" y="47" h="40" w="40" />
       <line>Over here, mister!</line>
     </part>
-    <part name="Drink Farmer" level="3">
+    <part name="Drunk Farmer" level="3">
       <area x="83" y="47" h="40" w="40" />
       <line>Git outta me barn!</line>
     </part>
@@ -92,7 +92,7 @@
       Douglas and Katherine confront Aunt Martha about her missing pies.  Devin
       sulks quietly in a side room. 
     </scene>
-    <part name="Squaking Boy" level="2">
+    <part name="Squeaking Boy" level="2">
       <area x="20" y="47" h="40" w="40" />
       <line>I'll say!</line>
     </part>
@@ -105,7 +105,7 @@
       <line>You got nothin'!</line>
     </part>
   </card>
-  <card name="Davy Crockett: A Drunkard's Tale" img="07.png" budget="4">
+  <card name="Davy Crockett: A Drunkard's Tale 2" img="07.png" budget="4">
     <scene number="31">
       Robert enlists the aid of several farm animals in order to ascertain the
       efficacy of his new hangover remedy.
@@ -222,7 +222,7 @@
       Jackson encourages the children to eat only taffy, because gum can kill
       them stone dead.
     </scene>
-    <part name="Curious girl" level="3">
+    <part name="Curious Girl" level="3">
       <area x="53" y="47" h="40" w="40" />
       <line>Are you sure?</line>
     </part>
@@ -432,7 +432,7 @@
       <line>Bzzzzzt!"</line>
     </part>
   </card>
-  <card name="Thirteen the Hard Way" img="27.png" budget="5">
+  <card name="Thirteen the Hard Way 1" img="27.png" budget="5">
     <scene number="15">
       After some delay, the Pony Express arrives. Isaac, Gwen, Francis, Terry,
       Conrad, Brooke, Jerry, Howard, MacNeill, Jones, Spike, Cornwall and
@@ -451,7 +451,7 @@
       <line>The mail!</line>
     </part>
   </card>
-  <card name="How They Get Milk" img="28.png" budget="4">
+  <card name="How They Get Milk 1" img="28.png" budget="4">
     <scene number="2">
       Josie asks the Milkman how they get milk. After a thoughtful pause, he
       begins. "Not like you'd expect!"
@@ -469,7 +469,7 @@
       <line>Yikes!</line>
     </part>
   </card>
-    <card name="My Years on the Prairie" img="29.png" budget="5">
+    <card name="My Years on the Prairie 1" img="29.png" budget="5">
     <scene number="27">
       Louise takes instruction from Henry, the neighbor boy, in an absurdly
       suggestive explanation of how to plow a field.
@@ -487,7 +487,7 @@
       <line>Mrr?</line>
     </part>
   </card>
-  <card name="Davy Crockett: A Drunkard's Tale" img="30.png" budget="4">
+  <card name="Davy Crockett: A Drunkard's Tale 1" img="30.png" budget="4">
     <scene number="12">
       In an absurd dream sequence, Crockett recalls an episode of fear and chaos
       in which his childhood friend Timmy was trapped at the bottom of a well.
@@ -610,7 +610,7 @@
       <line>Ow! My spine!</line>
     </part>
   </card>
-  <card name="Thirteen the Hard Way" img="37.png" budget="5">
+  <card name="Thirteen the Hard Way 2" img="37.png" budget="5">
     <scene number="17">
       After operating for only six minutes, the Pony Express disbands and gives
       way to the international Telegraph and Railroad systems. Little boys cry.
@@ -628,7 +628,7 @@
       <line>Progress!</line>
     </part>
   </card>
-  <card name="How They Get Milk" img="38.png" budget="4">
+  <card name="How They Get Milk 2" img="38.png" budget="4">
     <scene number="8">
       Josie is thoroughly off milk at this point. The Milkman shows her one more
       way that she might not have heard of before.

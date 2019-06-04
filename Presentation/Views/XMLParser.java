@@ -131,6 +131,34 @@ public class XMLParser {
         return output;
     }
 
+    public ArrayList<int[]> getShotCounterSizes() {
+        //Return ArrayList of structure [x, y, h, w], [x, y, h, w], ...
+        ArrayList<int[]> output = new ArrayList<int[]>();
+        Node n = doc.getElementsByTagName("set").item(setIx);
+        if(n instanceof Element) {
+            Element docElement = (Element)n;
+            Element takeElement = (Element)docElement.getElementsByTagName("takes").item(0);
+            NodeList takesList = takeElement.getElementsByTagName("take");
+            /* Loop through all parts on this specific set */
+            for(int i = 0; i < takesList.getLength(); i++) {
+                Element part = (Element)takesList.item(i);
+                //String partName = part.getAttribute("name");
+                /* Get this part's area (sizes) */
+                Element areaElement = (Element)part.getElementsByTagName("area").item(0);
+                output.add(new int[]{
+                        Integer.parseInt(areaElement.getAttribute("x")),
+                        Integer.parseInt(areaElement.getAttribute("y")),
+                        Integer.parseInt(areaElement.getAttribute("h")),
+                        Integer.parseInt(areaElement.getAttribute("w"))
+                });
+            }
+
+        }
+        return output;
+    }
+
+
+
     public ArrayList<String[]> getCardRoleSizes() {
         /* Return ArrayList of structure [roleName, x, y, h, w], [roleName, x, y, h, w], ...  */
         ArrayList<String[]> output = new ArrayList<String[]>();

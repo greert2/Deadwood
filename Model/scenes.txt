@@ -1,16 +1,16 @@
 Evil Wears a Hat/4/Calhoun is separated from the group during a white knuckle chase near Desparation Bluff!
-2_Defrocked Priest_Look out below!/3_Marshal Canfield_Hold fast!/4_One-eyed Man_Balderdash!
+2_Defrocked Priest_Look out below!/3_Marshal Canfield_Hold fast!/4_One-Eyed Man_Balderdash!
 Square Deal City/6/Douglas and Katherine confront Aunt Martha about her missing pies. Devin sulks quietly in a side room.
 2_Squeaking Boy_I'll say!/4_Pharaoh Imhotep_Attack, soldiers!/6_Aunt Martha_You got nothin'!
 Law and the Old West/3/Charlie "Three Guns" Henderson cooperates with Johnny Law and reluctantly enters the witless protection program.
 1_Rug Merchant_Don't leave my store!/2_Banker_Trust me./5_Talking Mule_Nice work, Johnny!
-Davy Crockett: A Drunkard's Tale/4/Robert enlists the aid of several farm animals in order to ascertain the efficacy of his new hangover remedy.
+Davy Crockett: A Drunkard's Tale 2/4/Robert enlists the aid of several farm animals in order to ascertain the efficacy of his new hangover remedy.
 4_The Duck_Waaaak!/6_His Brother_Waaaaaaak!
 The Life and Times of John Skywater 2/5/Disheartened by his lack of business acumen and his poor choice of investment partners, John Skywater sets off into the Cree Nation to convince them ti kidnap his wife.
 5_Auctioneer_Going once!/6_General Custer_Go West!
 The Way the West Was Run/4/Jose explains patiently, but with thinly veiled contempt, the intricacies of Arizona bureaucracy, as though speaking to simple and distracted child.
 2_Town Drunk_Even me!/4_Squinting Miner_Sure we can!/5_Poltergeist_Wooooo!
-My Years on the Prairie/5/Virgil and Stacy set out at midnight to track down the stray cows, unaware that they are being pursued by inch-high aliens from outer space.
+My Years on the Prairie 2/5/Virgil and Stacy set out at midnight to track down the stray cows, unaware that they are being pursued by inch-high aliens from outer space.
 3_Drunk_Where's Willard?/4_Librarian_Shhhhh!/6_Man with Hay_Hey!
 Down in the Valley/3/A tripped waiter is the spark igniting a brawl of cataclysmic proportions. Walter is injured in the neck.
 1_Angry Barber_Hold him still!/3_Woman with Board_Nonsense, Frank!/5_Man on Fire_It burns!
@@ -31,7 +31,7 @@ A Man Called 'Cow'/3/Nothing will settle the debates among the skeptical locals,
 Shakespeare in Lubbock/3/William decides that it is time to be movin' on. Julia convinces him to stick around just long enough to get into big trouble.
 1_Falls from Tree_What ho!/3_Laughing Woman_'Tis to laugh!/4_Man with Whistle_Tweeeeet!
 Taffy Commercial/2/Jackson encourages the children to eat only taffy, because gum can kill them stone dead.
-3_Curious Gril_Are you sure?/4_Ghost of Plato_It happened to me!
+3_Curious Girl_Are you sure?/4_Ghost of Plato_It happened to me!
 Go West, You!/3/Susan and Peter encounter some of the perils of the Badlands: rutted mud roads, torrential rain storms, and a bad case of "grumble tummy."
 4_Ex-Convict_Never again!/6_Man with Onion_Fresh onions!
 Gum Commercial/2/Inspector Pete speaks to a riveted audience about the many hidden dangers of taffy, not the least of which is that taffy can kill you stone dead.
@@ -44,19 +44,19 @@ One False Step for Mankind/6/After a dozen failed attempts, one rocket carries H
 1_Flustered Man_Well, I never!/2_Space Monkey_Ook!/5_Cowbot Dan_Bzzzzzt
 Humor at the Expense of Others/5/Phil and his cohort of unfeeling smart-mouths make fun of Sancho and his great big hat.
 2_Jailer_You there!/4_Mephistopheles_Be not afraid!/5_Breaks a Window_Oops!
-Thirteen the Hard Way/5/After some delay, the Pony Express arrives. Isaac, Gwen, Francis, Terry, Conrad, Brooke, Jerry, Howard, McNeill, Jones, Spike, Cornwall and Crawford are all there.
+Thirteen the Hard Way 1/5/After some delay, the Pony Express arrives. Isaac, Gwen, Francis, Terry, Conrad, Brooke, Jerry, Howard, McNeill, Jones, Spike, Cornwall and Crawford are all there.
 1_Man in Poncho_Howdy, Jones!/3_Ecstatic Housewife_This is fine!/5_Isaac_The mail!
 The Search for Maggie White/6/Alone in the wilderness, Maggie makes the best of her situation. In what seems like no time at all, she constructs a sturdy two-story house form branches and mud.
 5_Film Critic_Implausible/6_Hobo with Bat_Nice house!
-How They Get Milk/4/Josie asks the Milkman how they get milk. After a thoughtful pause, he begins. "Not like you'd expect!"
+How They Get Milk 1/4/Josie asks the Milkman how they get milk. After a thoughtful pause, he begins. "Not like you'd expect!"
 2_Cow_Moo/3_St. Clement of Alexandria_Peace be with you, child!/4_Josie_Yikes!
 Picante Sauce Commercial/2/A dozen grizzled cowboys surround a fire. Suddenly, they exclaim, "That's not mayonnaise!"
 3_Bewhisker'd Cowpoke_Oh, sweet Lord!/5_Dog_Wurf!
-My Years on the Prairie/5/Louise takes instructions from Henry, the neighbor boy, in an absurdly suggestive explanation of how to plow a field.
+My Years on the Prairie 1/5/Louise takes instructions from Henry, the neighbor boy, in an absurdly suggestive explanation of how to plow a field.
 2_Willard_Ain't that a sight?/3_Leprechaun_Begorrah!/5_Startled Ox_Mrr?
 Jesse James: Man of Action 1/5/A hail of gunfire results when Jesse's friend Barton marries Jesse's childhood sweetheart.
 1_Shot in Head_Arrrgh!/4_Leaps Out of Cake_Oh, for Pete's sake!/6_Shot Three Times_Ow! Ow! Ow!
-Davy Crockett: A Drunkard's Tale/4/In an absurd dream sequence, Crockett recalls an episode of fear and chaos in which his childhood friend Timmy was trapped at the bottom of a well.
+Davy Crockett: A Drunkard's Tale 1/4/In an absurd dream sequence, Crockett recalls an episode of fear and chaos in which his childhood friend Timmy was trapped at the bottom of a well.
 2_Voice of God_Grab hold, son!/3_Hands of God_!/4_Jack Kemp_America!
 Czechs in the Sonora/4/Bob reverts to his ancestral ways in a short fight over a disembodied hand.
 5_Opice (Monkey)_Ukk! (Ook!)/6_Man with Gun_Hold it right there!
@@ -64,11 +64,11 @@ J. Robert Lucky, Man of Substance/4/Horace and Mathilde discover that the myster
 1_Man with Rope_Look out below!/2_Svetlana_Says who?/5_Accidental Victim_Ow! My spine!
 Swing 'em Wide 1/6/Black Jack invites Dixon and The Captain to a late-night poker game. Little do they know that Gertrude and Isabella await them at the table.
 1_Thrifty Mike_Call!/3_Sober Physician_Raise!/5_Man on Floor_Fold!
-Thirteen the Hard Way/5/After operating for only six minutes, the Pony Express disbands and gives way to the international Telegraph and Railroad systems. Little boys cry.
+Thirteen the Hard Way 2/5/After operating for only six minutes, the Pony Express disbands and gives way to the international Telegraph and Railroad systems. Little boys cry.
 2_Very Wet Man_Sheesh!/4_Dejected Housewife_Its time had come!/5_Man with Box_Progress!
 Swing 'em Wide 2/6/Hector makes a surprising discovery behind the Chinese grocery store.
 3_Liberated Nun_Let me have it!/5_Witch Doctor_Oogie Boogie!/6_Voice of Reason_Come on, now!
-How They Get Milk/4/Josie is thoroughly off milk as this point. The Milkman shows her one more way that she might not have heard of before.
+How They Get Milk 2/4/Josie is thoroughly off milk as this point. The Milkman shows her one more way that she might not have heard of before.
 4_Marksman_Pull!/5_Postal Worker_It's about time!/6_A Horse_Yes Sir!
 Trials of the First Pioneers/4/A fire breaks out in the town livery. Before long, the surrounding buildings are engulfed in flame. The world falls into chaos.
 2_Burning Man_Make it stop!/4_Cheese Vendor_Opa!/5_Hit with Table_Ow! A table?

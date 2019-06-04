@@ -371,4 +371,20 @@ public class DeadwoodFrame extends JFrame {
     public void addComponentToFrame(Component comp, int layer) {
         paneDeadwood.add(comp, new Integer(layer));
     }
+
+    public void removeComponentFromFrame(String sceneName) {
+        Component[] comps = paneDeadwood.getComponentsInLayer(1);
+        for(int i = 0; i < comps.length; i++) {
+            try {
+                if (comps[i].getName().equals(sceneName)) {
+                    comps[i].setVisible(false);
+                    paneDeadwood.remove(comps[i]);
+                    System.out.println("B");
+                }
+            }catch(Exception e) {
+                System.out.println("C");
+            }
+        }
+        System.out.println("A");
+    }
 }

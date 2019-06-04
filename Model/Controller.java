@@ -8,8 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Controller {
 
@@ -20,6 +19,7 @@ public class Controller {
     /* A map of set names to their scene card object */
     private HashMap<String, JLabel> roomSceneCardMap = new HashMap<String, JLabel>();//<sceneName, JLabel (scene img)>
     private HashMap<String, JLabel> playerMap = new HashMap<String, JLabel>(); //<playerColor, JLabel (player img)>
+    private HashMap<String, Queue<JLabel>> shotCounterMap = new HashMap<String, Queue<JLabel>>(); //<setName, queue of shots for set>
     //private HashMap<String, JLabel> offCardRoleMap = new HashMap<String, JLabel>(); //<roleName, label>
     //private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
@@ -48,6 +48,7 @@ public class Controller {
         createSceneLabels();
         createPlayerLabels();
         createOffCardRoles();
+        createShotCounters();
         //XMLParser.getInstance().printInfo();
 
 
@@ -155,6 +156,7 @@ public class Controller {
                 //ImageIcon img = new ImageIcon(cardsParser.getSceneImagePath(scene.getSceneName()));
                 ImageIcon img = new ImageIcon(((new ImageIcon("Resources/cards/cardBack.png")).getImage()).getScaledInstance(205, 115, java.awt.Image.SCALE_SMOOTH));
                 sceneCard.setIcon(img);
+                sceneCard.setName(scene.getSceneName());
                 sceneCard.setBounds(sizes[0], sizes[1], sizes[3], sizes[2]);
                 sceneCard.setOpaque(true);
                 //add component to view
@@ -216,6 +218,36 @@ public class Controller {
         }
     }
 
+    public void createShotCounters() {
+        XMLParser boardParser = XMLParser.getInstanceForBoard();
+        //XMLParser cardsParser = XMLParser.getInstanceForCards();
+        /* Get scenes from the model */
+        ArrayList<Room> rooms = Board.getInstance().getRooms();
+
+        /* get the sizes */
+        /* loop through rooms */
+        for(int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+
+            if(room instanceof Set) {
+                boardParser.selectSet(room.getRoomName());
+                shotCounterMap.put(room.getRoomName(), new LinkedList<JLabel>());
+                ArrayList<int[]> info = boardParser.getShotCounterSizes();
+                for(int[] shot : info){
+                    JLabel shotLabel = new JLabel();
+                    ImageIcon img = new ImageIcon("Resources/shot.png");
+                    shotLabel.setIcon(img);
+                    shotLabel.setBounds(shot[0], shot[1], shot[2], shot[3]);
+                    //add shot counter label to the hashmap's queue
+                    shotCounterMap.get(room.getRoomName()).add(shotLabel);
+                    //add role to the view
+                    DeadwoodFrame.getInstance().addComponentToFrame(shotLabel, 2);
+                }
+            }
+
+        }
+    }
+
     public void endTurn() {
         GameSystem.getInstance().endTurn(); //ends current players turn
         this.currPlayer = GameSystem.getInstance().getCurrPlayer();
@@ -232,7 +264,7 @@ public class Controller {
         dFrame.getLabelCurrPlayerImg().setIcon(biggerIcon);
 
         dFrame.getLabelActivePlayerMoney().setText("$" + currPlayer.getMoney());
-        dFrame.getLabelActivePlayerCredits().setText(currPlayer.getMoney() + " credits");
+        dFrame.getLabelActivePlayerCredits().setText(currPlayer.getCredits() + " credits");
     }
 
     public boolean moveRoom(String roomName) {
@@ -318,5 +350,18 @@ public class Controller {
 
     public HashMap<String, JLabel> getPlayerMap(){
         return playerMap;
+    }
+
+    public HashMap<String, Queue<JLabel>> getShotCounterMap() {
+        return shotCounterMap;
+    }
+
+    public void removeShotCounter(String setName) {
+        this.shotCounterMap.get(setName).remove().setVisible(false);
+        Room room = currPlayer.getCurrentRoom();
+        if(((Set)room).getShotsLeft() == 0) {
+            ((Set)room).getCurrScene().wrap();
+            DeadwoodFrame.getInstance().removeComponentFromFrame(((Set) room).getCurrScene().getSceneName());
+        }
     }
 }
