@@ -23,6 +23,7 @@ public class IntroFrame extends JFrame {
     public IntroFrame() {
         super(DEADWOOD_TITLE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        pack(); //added
         setupMenuLabel();
         setupDescriptionLabel();
         setupSlider();
@@ -37,7 +38,7 @@ public class IntroFrame extends JFrame {
 
     private void setupDescriptionLabel() {
         labelDescription  = new JLabel("Please select the number of players");
-        labelDescription.setBounds(40, 40, 250, 20);
+        labelDescription.setBounds(25, 40, 500, 20);
     }
 
     private void setupSlider() {
