@@ -3,6 +3,7 @@ package Model;
 import Presentation.Views.DeadwoodFrame;
 import Presentation.Views.IntroFrame;
 import Presentation.Views.XMLParser;
+import Presentation.Views.UpgradeFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class Controller {
     private static Controller instance;
     private static IntroFrame introFrame;
     private static DeadwoodFrame deadwoodFrame;
+    private static UpgradeFrame upgradeFrame;
 
     /* A map of set names to their scene card object */
     private HashMap<String, JLabel> roomSceneCardMap = new HashMap<String, JLabel>();//<sceneName, JLabel (scene img)>
@@ -72,6 +74,14 @@ public class Controller {
             instance = new Controller();
         }
         return instance;
+    }
+    // ADDED
+    public void showUpgradeFrame() {
+    	upgradeFrame = new UpgradeFrame();
+    	upgradeFrame.setSize(380,250);
+    	upgradeFrame.setResizable(false);
+    	upgradeFrame.setVisible(true);
+    	
     }
 
     public void displayPlayers(){
