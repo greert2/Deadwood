@@ -150,7 +150,7 @@ public class DeadwoodFrame extends JFrame {
     private void setupActButton() {
         buttonAct = new JButton(ACT_BUTTON_TEXT);
         buttonAct.setBackground(Color.white);
-        buttonAct.setBounds(iconGameBoard.getIconWidth() + 10, 220, 100, 20);
+        buttonAct.setBounds(iconGameBoard.getIconWidth() + 10, 220, 110, 20);
         buttonAct.addMouseListener(new ActButtonMouseListener());
         buttonAct.setOpaque(true);
     }
@@ -158,14 +158,14 @@ public class DeadwoodFrame extends JFrame {
     private void setupRehearseButton() {
         buttonRehearse = new JButton(REHEARSE_BUTTON_TEXT);
         buttonRehearse.setBackground(Color.white);
-        buttonRehearse.setBounds(iconGameBoard.getIconWidth() + 10, 250, 100, 20);
+        buttonRehearse.setBounds(iconGameBoard.getIconWidth() + 10, 250, 110, 20);
         buttonRehearse.addMouseListener(new RehearseButtonMouseListener());
     }
 
     private void setupEndButton() {
         buttonEnd = new JButton("End Turn");
         buttonEnd.setBackground(Color.white);
-        buttonEnd.setBounds(iconGameBoard.getIconWidth() + 10, 280, 100, 20);
+        buttonEnd.setBounds(iconGameBoard.getIconWidth() + 10, 280, 110, 20);
         buttonEnd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
