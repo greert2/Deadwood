@@ -27,6 +27,7 @@ public class DeadwoodFrame extends JFrame {
     private JButton buttonAct;
     private JButton buttonRehearse;
     private JButton buttonEnd;
+    private JButton buttonUpgrade;
 
     private JButton buttonHotel;
     private JButton buttonChurch;
@@ -55,6 +56,7 @@ public class DeadwoodFrame extends JFrame {
     private static final String MENU_LABEL_TEXT = "Menu";
     private static final String ACT_BUTTON_TEXT = "Act";
     private static final String REHEARSE_BUTTON_TEXT = "Rehearse";
+    private static final String UPGRADE_BUTTON_TEXT = "Upgrade";
     //private static final String MOVE_BUTTON_TEXT = "Move";
     private static final String ACTIVE_PLAYER_LABEL_TEXT = "Active Player";
 
@@ -145,6 +147,7 @@ public class DeadwoodFrame extends JFrame {
         setupRehearseButton();
         setupEndButton();
         setupRoomButtons();
+        setupUpgradeButton();
     }
 
     private void setupActButton() {
@@ -165,13 +168,19 @@ public class DeadwoodFrame extends JFrame {
     private void setupEndButton() {
         buttonEnd = new JButton("End Turn");
         buttonEnd.setBackground(Color.white);
-        buttonEnd.setBounds(iconGameBoard.getIconWidth() + 10, 280, 110, 20);
+        buttonEnd.setBounds(iconGameBoard.getIconWidth() + 10, 310, 110, 20);
         buttonEnd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Controller.getInstance().endTurn();
             }
         });
+    }
+    private void setupUpgradeButton() {
+    	buttonUpgrade = new JButton(UPGRADE_BUTTON_TEXT);
+    	buttonUpgrade.setBackground(Color.white);
+    	buttonUpgrade.setBounds(iconGameBoard.getIconWidth() + 10, 280, 110, 20);
+    	buttonUpgrade.addMouseListener(new UpgradeButtonMouseListener());
     }
 
     private void setupRoomButtons() {
@@ -336,6 +345,7 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood.add(buttonAct, new Integer(2));
         paneDeadwood.add(buttonRehearse, new Integer(2));
         paneDeadwood.add(buttonEnd, new Integer(2));
+        paneDeadwood.add(buttonUpgrade, new Integer(2));
 
         paneDeadwood.add(buttonHotel, new Integer(2));
         paneDeadwood.add(buttonChurch, new Integer(2));
