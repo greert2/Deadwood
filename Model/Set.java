@@ -100,7 +100,7 @@ public class Set extends Room{
         return;
     }
 
-    public void givePlayersMainBonus() {
+    public String givePlayersMainBonus() {
         System.out.println("GIVING MAIN BONUS");
         //roll 'budget' number of dice. Distribute to players (wraps around). Pay based on rolled numbers
         Role[] roles = this.getCurrScene().getRoles();
@@ -122,30 +122,34 @@ public class Set extends Room{
                 rollsIx--;
             }
         }
+        String output = "";
         //give each player the correct points
         for(int i = 0; i < roles.length; i++) {
             if(roles[i].getPlayer() != null){
                 roles[i].getPlayer().addMoney(pointsForRoles[i]);
                 System.out.printf("Main Player %s got $%d.\n", roles[i].getPlayer().getColor(), pointsForRoles[i]);
+                output += "Player " + roles[i].getPlayer().getColor() + " got " + pointsForRoles[i] + "\n";
                 roles[i].getPlayer().clearRole();
             }
         }
 
-        return;
+        return output;
     }
 
-    public void givePlayersExtraBonus() {
+    public String givePlayersExtraBonus() {
         //give each player on extra roles money equal to the rank req'd for their role
         Role[] roles = this.getOffCardRoles();
+        String output = "";
         for(int i = 0; i < roles.length; i++) {
             if(roles[i].getPlayer() != null){
                 roles[i].getPlayer().addMoney(roles[i].getReqRank());
                 System.out.printf("Extra Player %s got $%d.\n", roles[i].getPlayer().getColor(), roles[i].getReqRank());
+                output += "Player " + roles[i].getPlayer().getColor() + " got " + roles[i].getReqRank() + "\n";
                 roles[i].getPlayer().clearRole();
             }
 
         }
-        return;
+        return output;
     }
 
     public Role[] getOffCardRoles() {

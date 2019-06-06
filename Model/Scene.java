@@ -1,5 +1,8 @@
 package Model;
 
+import Presentation.Views.DeadwoodFrame;
+
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Scene {
@@ -83,8 +86,16 @@ public class Scene {
         }
 
         if(needToGiveBonus) {
-            ((Set)currRoom).givePlayersMainBonus();
-            ((Set)currRoom).givePlayersExtraBonus();
+            String dialogMessage = ((Set)currRoom).givePlayersMainBonus();
+            dialogMessage += ((Set)currRoom).givePlayersExtraBonus();
+            if(Controller.getInstance().getPlayerMap().size() > 0){
+                //playerMap isn't empty, which means we are in GUI mode
+                //display a dialog to show what
+                JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), dialogMessage,
+                        "Bonuses!", JOptionPane.INFORMATION_MESSAGE,
+                        Controller.getInstance().getPlayerMap().get(
+                                Controller.getInstance().getCurrPlayer().getColor()).getIcon());
+            }
         }
         //Take the scene off the board
         Board.getInstance().removeScene(this);
