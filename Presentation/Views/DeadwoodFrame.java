@@ -4,8 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -120,6 +119,20 @@ public class DeadwoodFrame extends JFrame {
         ImageIcon playerDiceIcon = new ImageIcon(DICE_IMAGE);
         labelCurrPlayerImg.setIcon(playerDiceIcon);
         labelCurrPlayerImg.setBounds(iconGameBoard.getIconWidth() + 45, 30, playerDiceIcon.getIconWidth(), playerDiceIcon.getIconHeight());
+        labelCurrPlayerImg.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Player p = Controller.getInstance().getCurrPlayer();
+                p.addCredits(100);
+                p.addMoney(100);
+                p.updateRank(6);
+                System.out.println("TEST");
+                Controller.getInstance().displayPlayers();
+                Controller.getInstance().updateRanks();
+                Controller.getInstance().updateActivePlayerGUI();
+            }
+        });
+
     }
 
     private void setupActivePlayerLabel() {

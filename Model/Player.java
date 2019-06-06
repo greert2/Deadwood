@@ -101,13 +101,18 @@ public class Player {
 		}else{
 			if(this.getRole().isExtra()) {
 				//Extra role failed, but still gets a dollar!
+				((Set)this.getCurrentRoom()).removeShotCounter();
 				this.addMoney(1);
 				System.out.println("You failed as an extra, but you got a dollar for trying.");
 				output = "You failed as an extra, but you got a dollar for trying.";
+			}else if(!this.getRole().isExtra()) {
+				((Set)this.getCurrentRoom()).removeShotCounter();
+				output = "You acted badly.";
 			}
 		}
 		//Win or Fail, acting on this role is over
-		this.getRole().done();
+		if(this.getRole() != null)
+			this.getRole().done();
 		this.role = null;
 		return output;
 	}

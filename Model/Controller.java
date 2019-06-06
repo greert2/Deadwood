@@ -7,6 +7,8 @@ import Presentation.Views.UpgradeFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -26,7 +28,7 @@ public class Controller {
     //private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
     private Player currPlayer;
-    private boolean alreadyMoved;
+    private boolean blockAction;
 
     private Controller() {}
 
@@ -56,7 +58,7 @@ public class Controller {
 
         //set currPlayer initially
         this.currPlayer = GameSystem.getInstance().getCurrPlayer();
-        this.alreadyMoved = false;
+        this.blockAction = false;
 
         //ArrayList<Room> rooms = Board.getInstance().getRooms();
         //System.out.println(rooms.get(0).getRoomName());
@@ -67,6 +69,7 @@ public class Controller {
 
         /* Show the main frame */
         deadwoodFrame.setVisible(true);
+
     }
 
     public static Controller getInstance() {
@@ -106,6 +109,22 @@ public class Controller {
 
             //get if player has a role, place here if true
         }
+    }
+
+    public void updateRanks() {
+        ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
+
+        for(int i = 0; i < players.size(); i++) {
+            //get info on player color and rank in order to select correct image
+            Player currPlayer = players.get(i);
+            String color = currPlayer.getColor().substring(0, 1);
+            String rank = Integer.toString(currPlayer.getRank());
+            //example b1.png (color: blue, rank: 1)
+            String image = "Resources/dice/" + color + rank + ".png";
+            ImageIcon playerDiceIcon = new ImageIcon(((new ImageIcon(image)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+            playerMap.get(currPlayer.getColor()).setIcon(playerDiceIcon);
+        }
+
     }
 
     public void createPlayerLabels() {
@@ -261,7 +280,7 @@ public class Controller {
     public void endTurn() {
         GameSystem.getInstance().endTurn(); //ends current players turn
         this.currPlayer = GameSystem.getInstance().getCurrPlayer();
-        this.alreadyMoved = false;
+        this.blockAction = false;
         //update active player gui
         updateActivePlayerGUI();
     }
@@ -283,7 +302,7 @@ public class Controller {
         if(room instanceof Set){
             alreadyVisited = ((Set)room).getCurrScene().getVisited();
         }
-        if(!alreadyMoved && currPlayer.getRole() == null && currPlayer.moveRoom(room)) {
+        if(!blockAction && currPlayer.getRole() == null && currPlayer.moveRoom(room)) {
             //flip scene card and create roles (if needed)
             if(!alreadyVisited) { //!alreadyVisited implies it IS valid and not visited
                 flipSceneCard(((Set)room).getCurrScene().getSceneName());
@@ -291,13 +310,13 @@ public class Controller {
             //player has moved
             System.out.println("Player " + currPlayer.getColor() + " has moved to " + roomName);
             displayPlayers();
-            this.alreadyMoved = true;
+            this.blockAction = true;
             return true;
-        }else if(alreadyMoved){
-            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You have already moved this turn",
-                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
         }else if(currPlayer.getRole() != null) {
             JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You can't move if you are working on a role",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        }else if(blockAction){
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You have already moved or acted this turn",
                     "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
         }else {
             JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You cannot move here",
@@ -373,5 +392,17 @@ public class Controller {
             ((Set)room).getCurrScene().wrap();
             DeadwoodFrame.getInstance().removeComponentFromFrame(((Set) room).getCurrScene().getSceneName());
         }
+    }
+
+    public boolean isBlockAction() {
+        return blockAction;
+    }
+
+    public boolean blockAction() {
+        return blockAction = true;
+    }
+
+    public Player getCurrPlayer(){
+        return currPlayer;
     }
 }
