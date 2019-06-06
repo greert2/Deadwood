@@ -402,12 +402,10 @@ public class DeadwoodFrame extends JFrame {
                 if (comps[i].getName().equals(sceneName)) {
                     comps[i].setVisible(false);
                     paneDeadwood.remove(comps[i]);
-                    System.out.println("B");
                 }
             }catch(Exception e) {
-                System.out.println("C");
+                System.out.println("Couldn't find component to remove");
             }
         }
-        System.out.println("A");
     }
 }

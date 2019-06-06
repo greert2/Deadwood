@@ -389,7 +389,7 @@ public class Controller {
         this.shotCounterMap.get(setName).remove().setVisible(false);
         Room room = currPlayer.getCurrentRoom();
         if(((Set)room).getShotsLeft() == 0) {
-            ((Set)room).getCurrScene().wrap();
+            //((Set)room).getCurrScene().wrap();
             DeadwoodFrame.getInstance().removeComponentFromFrame(((Set) room).getCurrScene().getSceneName());
         }
     }
