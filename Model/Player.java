@@ -28,6 +28,12 @@ public class Player {
 		return false;
 	}
 
+	public void forceMoveRoom(Room room) {
+		this.currentRoom.leave(this);
+		this.currentRoom = room;
+		this.currentRoom.visit(this);
+	}
+
 	private boolean roomIsAdjacent(Room room) {
 		for(Room r : currentRoom.getAdjacentRooms()) {
 			if(r.getRoomName().equals(room.getRoomName()))
@@ -188,7 +194,7 @@ public class Player {
 				//loop through the role's matching it to their selection
 				for(int i = 0; i < offRoles.length; i++){
 					if(offRoles[i].getName().equals(roleName)){
-						if(offRoles[i].takeRole(this)){
+						if(offRoles[i].takeRole(this) && ((Set)this.getCurrentRoom()).getShotsLeft() > 0){
 							this.updateRole(offRoles[i]);
 							System.out.println("You have successfully taken this off card role.");
 							return true;

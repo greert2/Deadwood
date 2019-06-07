@@ -114,6 +114,8 @@ public class Board {
                     scenes.add(new Scene(tempSceneName, tempDescription, tempBudget, arr[0]));
                 }
                 sceneIx++;
+                //reset scene count to full scenes!
+                this.sceneCnt = 10;
             }
 
         }catch(IOException e){
@@ -201,6 +203,7 @@ public class Board {
             //move all players back to their trailers
             p.moveRoom(this.getSpecificRoom("Trailer"));
         }
+        resetOffCardRoles();
         return;
     }
 
@@ -209,9 +212,16 @@ public class Board {
         //Shuffle list, remove 10 scenes & place them on the board
         Collections.shuffle(scenes);
         for(int i = 0; i < rooms.size(); i++) {
-            if(rooms.get(i) instanceof Set) {
-                ((Set)rooms.get(i)).setCurrScene(scenes.remove(0));
+            //make sure our 'deck' of scenes is not empty!
+            if(scenes.size() != 0) {
+                if(rooms.get(i) instanceof Set) {
+                    ((Set)rooms.get(i)).setCurrScene(scenes.remove(0));
+                }
+            }else{
+                //the game should now end
+                //GameSystem.getInstance().calculateScores();
             }
+
         }
         return;
     }
@@ -225,12 +235,27 @@ public class Board {
     }
 
     public int updateSceneCnt() {
-        this.sceneCnt = this.scenes.size();
+        //this.sceneCnt = this.scenes.size();
+        sceneCnt--;
+        System.out.println("SCENE COUNT: " + sceneCnt);
         if(this.sceneCnt == 1) {
+            System.out.println("ENDING DAY!");
             //must end the day
+            //put all players back in their trailer, remove roles
+            ArrayList<Player> players = GameSystem.getInstance().getPlayerList();
+            for(Player p : players) {
+                p.forceMoveRoom(this.getSpecificRoom("Trailer"));
+                p.updateRole(null);
+            }
+
             GameSystem.getInstance().addDay();
             this.resetBoard();
             this.endDay();
+            if(Controller.getInstance().getPlayerMap().size() > 0) {
+                //we are in GUI mode
+                //reset GUI to new day
+                Controller.getInstance().resetBoard();
+            }
         }
         return this.sceneCnt;
     }
@@ -246,6 +271,17 @@ public class Board {
 
     public ArrayList<Scene> getScenes() {
         return scenes;
+    }
+
+    public void resetOffCardRoles(){
+        for(Room room : rooms) {
+            if(room instanceof Set) {
+                Role[] offCardRoles = ((Set)room).getOffCardRoles();
+                for(Role role : offCardRoles) {
+                    role.resetRole();
+                }
+            }
+        }
     }
 
 }

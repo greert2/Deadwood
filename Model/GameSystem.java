@@ -1,5 +1,8 @@
 package Model;
 
+import Presentation.Views.DeadwoodFrame;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -234,7 +237,8 @@ public class GameSystem {
 		return currPlayer;
 	}
 	
-	public void calculateScores(Player[] players) {
+	public void calculateScores() {
+		Player[] players = playerList.toArray(new Player[playerList.size()]);
 		int highScore = 0;
 		int tempScore;
 		Player winner = null;
@@ -249,6 +253,15 @@ public class GameSystem {
 			}
 		}
 		System.out.printf("Player %s wins!\n", winner.getColor());
+		if(Controller.getInstance().getPlayerMap().size() > 0) {
+			//we are in GUI mode
+			JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(),
+					"Player "  + winner.getColor() + " wins!",
+					"Winner!", JOptionPane.INFORMATION_MESSAGE,
+					Controller.getInstance().getPlayerMap().get(winner.getColor()).getIcon());
+			System.exit(0);
+		}
+		return;
 	}
 
 
@@ -259,7 +272,7 @@ public class GameSystem {
     public void addDay() {
 		this.dayCnt++;
 		if(this.getDaysLeft() == 0) {
-			this.calculateScores(playerList.toArray(new Player[playerList.size()]));
+			this.calculateScores();
 		}
 	}
 	
@@ -271,6 +284,10 @@ public class GameSystem {
 		Player p = playersQueue.remove();
 		playersQueue.add(p);
 		currPlayer = playersQueue.peek();
+	}
+
+	public void setTotalDays(int dayTot) {
+		this.dayTot = dayTot;
 	}
 	
 }

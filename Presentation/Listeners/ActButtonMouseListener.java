@@ -8,6 +8,7 @@ import Presentation.Views.DeadwoodFrame;
 import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class ActButtonMouseListener extends BaseDeadwoodMouseListener {
     private final String ACT_SELECT_MSG = "Acting is Selected\n";
@@ -46,7 +47,6 @@ public class ActButtonMouseListener extends BaseDeadwoodMouseListener {
                     "Failure!", JOptionPane.INFORMATION_MESSAGE,
                     Controller.getInstance().getPlayerMap().get(currPlayer.getColor()).getIcon());
         }
-
         Controller.getInstance().displayPlayers();
         Controller.getInstance().updateActivePlayerGUI();
     }

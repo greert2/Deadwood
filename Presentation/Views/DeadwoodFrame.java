@@ -126,6 +126,7 @@ public class DeadwoodFrame extends JFrame {
                 p.addCredits(100);
                 p.addMoney(100);
                 p.updateRank(6);
+                //Controller.getInstance().resetBoard();
                 System.out.println("TEST");
                 Controller.getInstance().displayPlayers();
                 Controller.getInstance().updateRanks();

@@ -40,4 +40,8 @@ public abstract class Room {
     public void setPlayerCoords(int[] coords){
         this.playerCoords = coords;
     }
+
+    public ArrayList<Player> getPlayersHere() {
+        return playersHere;
+    }
 }

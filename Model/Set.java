@@ -7,6 +7,7 @@ public class Set extends Room{
     private String roomName;
     private Scene currScene;
     private int shotCounters;
+    private int initialShotCounters;
     private boolean finished;
     private Role[] offCardRoles;
 
@@ -15,6 +16,7 @@ public class Set extends Room{
         String arr[];
         this.roomName = roomName;
         this.finished = false;
+        this.initialShotCounters = shotCounters;
         this.shotCounters = shotCounters;
         this.setPlayerCoords(playerCoords);
 
@@ -30,6 +32,7 @@ public class Set extends Room{
         String arr[];
         this.roomName = roomName;
         this.finished = false;
+        this.initialShotCounters = shotCounters;
         this.shotCounters = shotCounters;
         this.setPlayerCoords(playerCoords);
 
@@ -47,6 +50,7 @@ public class Set extends Room{
         String arr[];
         this.roomName = roomName;
         this.finished = false;
+        this.initialShotCounters = shotCounters;
         this.shotCounters = shotCounters;
         this.setPlayerCoords(playerCoords);
 
@@ -90,7 +94,6 @@ public class Set extends Room{
         System.out.printf("%d shot counters remaining for this set.\n", this.getShotsLeft());
         if(this.getShotsLeft() == 0) {
             //The scene is finished and needs to be wrapped
-
             this.getCurrScene().wrap();
         }
         return;
@@ -172,6 +175,10 @@ public class Set extends Room{
                 System.out.println(i + ": " + this.getCurrScene().getRoles()[i].getRoleInfo());
             }
         }
+    }
+
+    public void resetShotCounters() {
+        this.shotCounters = this.initialShotCounters;
     }
 
 }

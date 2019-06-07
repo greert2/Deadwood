@@ -10,6 +10,7 @@ public class Scene {
     private Role[] roles;
     private int budget;
     private boolean visited;
+    private boolean wrapped = false;
     private String sceneName;
     private String description;
 
@@ -72,6 +73,7 @@ public class Scene {
 
     public void wrap() {
         //this wraps the scene. Removes it from board and gives bonuses if needed
+        this.wrapped = true;
         boolean needToGiveBonus = false;
         ArrayList<Player> players;
         Room currRoom = null;
@@ -99,6 +101,11 @@ public class Scene {
         }
         //Take the scene off the board
         Board.getInstance().removeScene(this);
+        ArrayList<Player> playersInRoom = Controller.getInstance().getCurrPlayer().getCurrentRoom().getPlayersHere();
+        for(Player p : playersInRoom) {
+            p.updateRole(null);
+        }
+
         return;
     }
 
@@ -112,6 +119,10 @@ public class Scene {
 
     public boolean getVisited() {
         return visited;
+    }
+
+    public boolean isWrapped() {
+        return wrapped;
     }
 
 }

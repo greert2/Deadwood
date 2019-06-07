@@ -24,6 +24,8 @@ public class Controller {
     private HashMap<String, JLabel> roomSceneCardMap = new HashMap<String, JLabel>();//<sceneName, JLabel (scene img)>
     private HashMap<String, JLabel> playerMap = new HashMap<String, JLabel>(); //<playerColor, JLabel (player img)>
     private HashMap<String, Queue<JLabel>> shotCounterMap = new HashMap<String, Queue<JLabel>>(); //<setName, queue of shots for set>
+    private ArrayList<JLabel> roleLabels = new ArrayList<JLabel>();
+    //private ArrayList<Role> allOffCardRoles = new ArrayList<Role>();
     //private HashMap<String, JLabel> offCardRoleMap = new HashMap<String, JLabel>(); //<roleName, label>
     //private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
@@ -53,7 +55,9 @@ public class Controller {
         createPlayerLabels();
         createOffCardRoles();
         createShotCounters();
-        //XMLParser.getInstance().printInfo();
+
+        /* Set number of days */
+        GameSystem.getInstance().setTotalDays(3);
 
 
         //set currPlayer initially
@@ -84,7 +88,6 @@ public class Controller {
     	upgradeFrame.setSize(380,250);
     	upgradeFrame.setResizable(false);
     	upgradeFrame.setVisible(true);
-    	
     }
 
     public void displayPlayers(){
@@ -330,10 +333,16 @@ public class Controller {
 
         if(roomSceneCardMap.containsKey(sceneName)) {
             System.out.println("Scene " + sceneName + " flipped");
+            //flip scene
             cardsParser.selectScene(sceneName);
             String imgPath = cardsParser.getSceneImagePath(sceneName);
             ImageIcon img = new ImageIcon(imgPath);
             roomSceneCardMap.get(sceneName).setIcon(img);
+            //
+            if(currPlayer.getCurrentRoom() instanceof Set) {
+                ((Set)currPlayer.getCurrentRoom()).resetShotCounters();
+            }
+
 
             JLabel sceneCard = roomSceneCardMap.get(sceneName);
             Rectangle rect = sceneCard.getBounds();
@@ -368,6 +377,7 @@ public class Controller {
                 });
                 //add role to the view
                 DeadwoodFrame.getInstance().addComponentToFrame(roleLabel, 5);
+                roleLabels.add(roleLabel);
                 System.out.println("Added " + role[0]);
             }
         }
@@ -386,11 +396,19 @@ public class Controller {
     }
 
     public void removeShotCounter(String setName) {
-        this.shotCounterMap.get(setName).remove().setVisible(false);
-        Room room = currPlayer.getCurrentRoom();
-        if(((Set)room).getShotsLeft() == 0) {
-            //((Set)room).getCurrScene().wrap();
-            DeadwoodFrame.getInstance().removeComponentFromFrame(((Set) room).getCurrScene().getSceneName());
+        if(setName.equals("Trailer")){
+            //the day just ended, so we can just ignore, the rest will handle it
+        }else{
+            JLabel shotCounter = this.shotCounterMap.get(setName).remove();
+            shotCounter.setVisible(false);
+            this.getShotCounterMap().get(setName).add(shotCounter);
+            Room room = currPlayer.getCurrentRoom();
+            if(((Set)room).getShotsLeft() == 0) {
+                if(!((Set)room).getCurrScene().isWrapped()) {
+                    ((Set) room).getCurrScene().wrap();
+                }
+                DeadwoodFrame.getInstance().removeComponentFromFrame(((Set) room).getCurrScene().getSceneName());
+            }
         }
     }
 
@@ -405,5 +423,31 @@ public class Controller {
 
     public Player getCurrPlayer(){
         return currPlayer;
+    }
+
+    public void resetBoard() {
+        //remove all scene cards
+        for(JLabel sceneCard : roomSceneCardMap.values()) {
+            if(sceneCard != null)
+                sceneCard.setVisible(false);
+                deadwoodFrame.removeComponentFromFrame(sceneCard.getName());
+        }
+        //remove all on-card roles
+        for(JLabel role : roleLabels) {
+            role.setVisible(false);
+        }
+        //reset all shot counters
+        for(Queue<JLabel> shotCounterQueue : shotCounterMap.values()) {
+            for(JLabel shotCounter : shotCounterQueue) {
+                shotCounter.setVisible(true);
+            }
+        }
+        //only do the rest if there are days left!
+        if(GameSystem.getInstance().getDaysLeft() >= 0) {
+            createSceneLabels();
+        }
+        //move players to trailers (just redisplay)
+        displayPlayers();
+
     }
 }

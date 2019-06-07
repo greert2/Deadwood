@@ -64,6 +64,15 @@ public class Role {
 	public boolean isTaken() {
 		return taken;
 	}
+
+	public void resetRole() {
+		this.taken = false;
+		if(this.getPlayer() != null){
+			//player is still here, kick them out!
+			this.getPlayer().updateRole(null);
+		}
+		this.actor = null;
+	}
 	
 
 }
