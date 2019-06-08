@@ -8,6 +8,9 @@ import Presentation.Listeners.*;
 
 public class UpgradeFrame extends JFrame {
 	
+	private int newRank;
+	private String paymentType;
+	
 	private JLabel labelRank;
 	private JLabel labelPayment;
 	private JButton buttonGo;
@@ -42,11 +45,11 @@ public class UpgradeFrame extends JFrame {
         slider.setPaintLabels(true);
         slider.setSnapToTicks(true);
         slider.setBounds(50, 50, 250, 40);
-        /*slider.addChangeListener(new ChangeListener() {
+        slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                playerCnt = ((JSlider)e.getSource()).getValue();
+                newRank = ((JSlider)e.getSource()).getValue();
             }
-        });*/
+        });
     }
 	private void setupPaymentLabel() {
         labelPayment  = new JLabel("Select to pay by credits or dollars.");
@@ -56,18 +59,31 @@ public class UpgradeFrame extends JFrame {
 	private void setupCreditsBox() {
 		creditsBox = new JCheckBox("Credits");
 		creditsBox.setBounds(100, 150, 200, 15);
-
+		creditsBox.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(creditsBox.isSelected()) {
+					paymentType = "credits";
+				}
+			}
+		});
 	}
 	private void setupDollarsBox() {
 		dollarsBox = new JCheckBox("Dollars");
 		dollarsBox.setBounds(100, 165, 200, 15);
+		dollarsBox.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(dollarsBox.isSelected()) {
+					paymentType = "money";
+				}
+			}
+		});
 	}
 	
 	private void setupUpgradeButton() {
 		buttonGo = new JButton("Go");
 		buttonGo.setBackground(Color.white);
 		buttonGo.setBounds(100, 210, 100, 20);
-		//buttonGo.addMouseListener(new GoButtonMouseListener());
+		buttonGo.addMouseListener(new GoButtonMouseListener());
     }
 	
 	private void initializePane() {
@@ -82,5 +98,12 @@ public class UpgradeFrame extends JFrame {
 		paneUpgrade.add(dollarsBox);
 
 	    }
+	public int getNewRank() {
+		return newRank;
+	} 
+	public String getPaymentType() {
+		return paymentType;
+	}
+	
 	
 }
