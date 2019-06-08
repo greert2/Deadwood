@@ -388,6 +388,9 @@ public class Controller {
     public static IntroFrame getIntroFrame() {
         return introFrame;
     }
+    public static UpgradeFrame getUpgradeFrame() {
+    	return upgradeFrame;
+    }
 
     public HashMap<String, JLabel> getPlayerMap(){
         return playerMap;

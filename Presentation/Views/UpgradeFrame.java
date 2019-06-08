@@ -12,6 +12,9 @@ import Presentation.Listeners.*;
 
 public class UpgradeFrame extends JFrame {
 	
+	private int newRank;
+	private String paymentType;
+	
 	private JLabel labelRank;
 	private JLabel labelPayment;
 	private JButton buttonGo;
@@ -85,6 +88,7 @@ public class UpgradeFrame extends JFrame {
 		buttonGo = new JButton("Go");
 		buttonGo.setBackground(Color.white);
 		buttonGo.setBounds(100, 210, 100, 20);
+
 		buttonGo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -110,8 +114,4 @@ public class UpgradeFrame extends JFrame {
 	public int[][] getCosts() {
 		return costs;
 	}
-
-
-
-	
 }

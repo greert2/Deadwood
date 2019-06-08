@@ -68,4 +68,13 @@ public class CastingOffice extends Room {
     public void printInfo() {
         System.out.println("You may upgrade your rank here.");
     }
+    public boolean canUpgrade(Player p, int rank, String type) {
+    	if(type.equals("money") && rank > p.getRank() && rank < 7) {
+    		return (p.getMoney() >= upgrades[rank - 2][0]);
+    	}
+    	else if(type.equals("credits") && rank > p.getRank() && rank < 7) {
+    		return (p.getCredits() >= upgrades[rank - 2][1]);
+    	}
+    	return false;
+    }
 }
