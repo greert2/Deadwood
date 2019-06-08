@@ -18,9 +18,12 @@ public class Deadwood {
             /* Attempt to get number of players */
             try{
                 if(args[0].toLowerCase().equals("gui")){
+                    //run GUI
                     Controller.getInstance();
                 }else{
+                    //run TEXT
                     playerCnt = Integer.parseInt(args[0]);
+                    GameSystem.getInstance().startGame(playerCnt);
                 }
             }catch(NumberFormatException err) {
                 System.out.println("Incorrect run. Run with only [number of players] or [gui].");
@@ -28,7 +31,7 @@ public class Deadwood {
             }
         }
 
-        GameSystem.getInstance().startGame(playerCnt);
+
 
         return;
     }

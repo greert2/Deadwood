@@ -33,5 +33,6 @@ public class RehearseButtonMouseListener extends BaseDeadwoodMouseListener {
                     "Failure!", JOptionPane.INFORMATION_MESSAGE,
                     Controller.getInstance().getPlayerMap().get(currPlayer.getColor()).getIcon());
         }
+        Controller.getInstance().updateActivePlayerGUI();
     }
 }

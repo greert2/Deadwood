@@ -22,6 +22,7 @@ public class DeadwoodFrame extends JFrame {
     private JLabel labelActivePlayer;
     private JLabel labelActivePlayerMoney;
     private JLabel labelActivePlayerCredits;
+    private JLabel labelActivePlayerRehearsals;
 
     private JButton buttonAct;
     private JButton buttonRehearse;
@@ -88,6 +89,7 @@ public class DeadwoodFrame extends JFrame {
         setupCurrPlayerImgLabel(); //image
         setupActivePlayerLabelMoney(); //money
         setupActivePlayerLabelCredits(); //credits
+        setupActivePlayerLabelRehearsals(); //rehearsal chips
     }
 
     private void setupGameBoardLabel() {
@@ -149,6 +151,11 @@ public class DeadwoodFrame extends JFrame {
     private void setupActivePlayerLabelCredits() {
         labelActivePlayerCredits = new JLabel("0 credits");
         labelActivePlayerCredits.setBounds(iconGameBoard.getIconWidth() + 20, 95, 100, 20);
+    }
+
+    private void setupActivePlayerLabelRehearsals() {
+        labelActivePlayerRehearsals = new JLabel("0 chips");
+        labelActivePlayerRehearsals.setBounds(iconGameBoard.getIconWidth() + 20, 115, 100, 20);
     }
 
     private void setupMenuLabel() {
@@ -355,6 +362,7 @@ public class DeadwoodFrame extends JFrame {
         paneDeadwood.add(labelMenu, new Integer(2));
         paneDeadwood.add(labelActivePlayerMoney, 2);
         paneDeadwood.add(labelActivePlayerCredits, 2);
+        paneDeadwood.add(labelActivePlayerRehearsals, 2);
 
         paneDeadwood.add(buttonAct, new Integer(2));
         paneDeadwood.add(buttonRehearse, new Integer(2));
@@ -389,6 +397,10 @@ public class DeadwoodFrame extends JFrame {
 
     public JLabel getLabelActivePlayerCredits() {
         return labelActivePlayerCredits;
+    }
+
+    public JLabel getLabelActivePlayerRehearsals() {
+        return labelActivePlayerRehearsals;
     }
 
 

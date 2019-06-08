@@ -47,6 +47,7 @@ public class ActButtonMouseListener extends BaseDeadwoodMouseListener {
                     "Failure!", JOptionPane.INFORMATION_MESSAGE,
                     Controller.getInstance().getPlayerMap().get(currPlayer.getColor()).getIcon());
         }
+        currPlayer.resetRehearseChips();
         Controller.getInstance().displayPlayers();
         Controller.getInstance().updateActivePlayerGUI();
     }

@@ -110,6 +110,7 @@ public class Controller {
 
             //get if player has a role, place here if true
         }
+        updateActivePlayerGUI();
     }
 
     public void updateRanks() {
@@ -295,6 +296,7 @@ public class Controller {
 
         dFrame.getLabelActivePlayerMoney().setText("$" + currPlayer.getMoney());
         dFrame.getLabelActivePlayerCredits().setText(currPlayer.getCredits() + " credits");
+        dFrame.getLabelActivePlayerRehearsals().setText(currPlayer.getRehearseChips() + " chips");
     }
 
     public boolean moveRoom(String roomName) {
