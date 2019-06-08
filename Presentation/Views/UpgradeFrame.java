@@ -1,9 +1,13 @@
 package Presentation.Views;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Model.Controller;
+import Model.Player;
 import Presentation.Listeners.*;
 
 public class UpgradeFrame extends JFrame {
@@ -12,11 +16,16 @@ public class UpgradeFrame extends JFrame {
 	private JLabel labelPayment;
 	private JButton buttonGo;
 	private JSlider slider;
-	
-	private JCheckBox creditsBox;
-	private JCheckBox dollarsBox;
+
+	private ButtonGroup buttonGroup;
+	private JRadioButton creditsBox;
+	private JRadioButton dollarsBox;
 	
 	private JLayeredPane paneUpgrade;
+
+	private int[][] costs = new int[][]{ {4,5},{10,10},{18,15},{28,20},{40,25}};
+
+	private int desiredRank = 2;
 	
 	private static final String UPGRADE_TITLE = "Upgrade";
 	
@@ -28,7 +37,9 @@ public class UpgradeFrame extends JFrame {
 		setupUpgradeButton();
 		setupCreditsBox();
 		setupDollarsBox();
+		setupButtonGroup();
 		initializePane();
+
 	}
 	public void setupRankLabel() {
 		labelRank = new JLabel("Select rank to upgrade to");
@@ -42,11 +53,12 @@ public class UpgradeFrame extends JFrame {
         slider.setPaintLabels(true);
         slider.setSnapToTicks(true);
         slider.setBounds(50, 50, 250, 40);
-        /*slider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                playerCnt = ((JSlider)e.getSource()).getValue();
-            }
-        });*/
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				desiredRank = ((JSlider)e.getSource()).getValue();
+
+			}
+		});
     }
 	private void setupPaymentLabel() {
         labelPayment  = new JLabel("Select to pay by credits or dollars.");
@@ -54,20 +66,31 @@ public class UpgradeFrame extends JFrame {
     }
 	
 	private void setupCreditsBox() {
-		creditsBox = new JCheckBox("Credits");
+		creditsBox = new JRadioButton("Credits");
 		creditsBox.setBounds(100, 150, 200, 15);
-
+		creditsBox.setSelected(true);
 	}
 	private void setupDollarsBox() {
-		dollarsBox = new JCheckBox("Dollars");
-		dollarsBox.setBounds(100, 165, 200, 15);
+		dollarsBox = new JRadioButton("Dollars");
+		dollarsBox.setBounds(100, 170, 200, 15);
 	}
-	
+
+	private void setupButtonGroup() {
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(creditsBox);
+		buttonGroup.add(dollarsBox);
+	}
+
 	private void setupUpgradeButton() {
 		buttonGo = new JButton("Go");
 		buttonGo.setBackground(Color.white);
 		buttonGo.setBounds(100, 210, 100, 20);
-		//buttonGo.addMouseListener(new GoButtonMouseListener());
+		buttonGo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controller.getInstance().Upgrade(desiredRank, creditsBox.isSelected());
+			}
+		});
     }
 	
 	private void initializePane() {
@@ -81,6 +104,14 @@ public class UpgradeFrame extends JFrame {
 		paneUpgrade.add(creditsBox);
 		paneUpgrade.add(dollarsBox);
 
-	    }
+	}
+
+
+	public int[][] getCosts() {
+		return costs;
+	}
+
+
+
 	
 }

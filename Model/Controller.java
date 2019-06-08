@@ -29,6 +29,8 @@ public class Controller {
     //private HashMap<String, JLabel> offCardRoleMap = new HashMap<String, JLabel>(); //<roleName, label>
     //private HashMap<String, JButton> roomMap = new HashMap<String, JButton>(); //<roomName, room button>
 
+    private int[][] costs = new int[][]{ {4,5},{10,10},{18,15},{28,20},{40,25}};
+
     private Player currPlayer;
     private boolean blockAction;
 
@@ -450,4 +452,47 @@ public class Controller {
         displayPlayers();
 
     }
+
+    public void Upgrade(int rank, boolean credit) {
+        int rankCostDollar = costs[rank - 2][0];
+        int rankCostCredit = costs[rank - 2][1];
+        if (!credit && currPlayer.getMoney() >= rankCostDollar) {
+            currPlayer.updateRank(rank);
+            currPlayer.payMoney(rankCostDollar);
+
+            String color = currPlayer.getColor().substring(0, 1);
+            String rankStr = Integer.toString(currPlayer.getRank());
+            //example b1.png (color: blue, rank: 1)
+            String image = "Resources/dice/" + color + rankStr + ".png";
+            ImageIcon playerDiceIcon = new ImageIcon(((new ImageIcon(image)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+
+            playerMap.get(currPlayer.getColor()).setIcon(playerDiceIcon);
+            System.out.println("PLAYER UPGRADED" + currPlayer.getRank());
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You are now rank: " + currPlayer.getRank(),
+                    "Success!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        } else if (!credit && currPlayer.getCredits() < rankCostDollar) {
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You do not have sufficient funds. ",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        }
+        if (credit && currPlayer.getCredits() >= rankCostCredit) {
+            currPlayer.updateRank(rank);
+            currPlayer.payCredits(rankCostCredit);
+
+            String color = currPlayer.getColor().substring(0, 1);
+            String rankStr = Integer.toString(currPlayer.getRank());
+            //example b1.png (color: blue, rank: 1)
+            String image = "Resources/dice/" + color + rankStr + ".png";
+            ImageIcon playerDiceIcon = new ImageIcon(((new ImageIcon(image)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+
+            playerMap.get(currPlayer.getColor()).setIcon(playerDiceIcon);
+            System.out.println("PLAYER UPGRADED" + currPlayer.getRank());
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You are now rank: " + currPlayer.getRank(),
+                    "Success!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        } else if (credit && currPlayer.getCredits() < rankCostCredit) {
+            JOptionPane.showMessageDialog(DeadwoodFrame.getInstance(), "You do not have sufficient funds. ",
+                    "Failure!", JOptionPane.INFORMATION_MESSAGE, playerMap.get(currPlayer.getColor()).getIcon());
+        }
+        updateActivePlayerGUI();
+    }
+
 }
