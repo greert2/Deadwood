@@ -32,9 +32,7 @@ public class Controller {
     private Player currPlayer;
     private boolean blockAction;
 
-    private Controller() {}
-
-    public static void main(String[] args) {
+    private Controller() {
         introFrame = new IntroFrame();
         introFrame.setSize(300,270);
         introFrame.setResizable(false);

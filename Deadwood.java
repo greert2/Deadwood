@@ -1,4 +1,7 @@
+import Model.Controller;
 import Model.GameSystem;
+
+import java.util.ConcurrentModificationException;
 
 public class Deadwood {
     //Tyler: Room, Scene, Board, Casting Office
@@ -9,14 +12,18 @@ public class Deadwood {
         int playerCnt = 0;
 
         if(args.length != 1) {
-            System.out.println("Run with only [number of players].");
+            System.out.println("Run with only [number of players] or [gui].");
             System.exit(1); //throw exception?
         }else{
             /* Attempt to get number of players */
             try{
-                playerCnt = Integer.parseInt(args[0]);
+                if(args[0].toLowerCase().equals("gui")){
+                    Controller.getInstance();
+                }else{
+                    playerCnt = Integer.parseInt(args[0]);
+                }
             }catch(NumberFormatException err) {
-                System.out.println("Incorrect run. Run with only [number of players].");
+                System.out.println("Incorrect run. Run with only [number of players] or [gui].");
                 System.exit(1);
             }
         }

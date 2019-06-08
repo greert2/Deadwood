@@ -7,6 +7,21 @@ To compile:
 To run:
 
     java Deadwood [player count]
+    
+To run GUI version:
+
+    java Deadwood gui
+
+How to use GUI version:
+
+* First, select the number of players from the initial dialog
+* To move, click on a room's button on the board
+* To take a role, click on the role on the board
+* To act, click the act button
+* To rehearse, click the rehearse button
+* To upgrade, you must be in the Casting Office, then select Upgrade button and follow instructions
+
+
 
 
 Commands:
